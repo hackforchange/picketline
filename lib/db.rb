@@ -6,7 +6,7 @@ module PicketLine
       def connect
         @@db ||= (ENV['DATABASE_URL'] ? Sequel.connect(ENV['DATABASE_URL']) : Sequel.sqlite('/Users/andrew/development/picketline/pl.db'))
       end
-    
+
       def create
         connect
         @@db.create_table :users do
