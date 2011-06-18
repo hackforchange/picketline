@@ -33,7 +33,10 @@ module PicketLine
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       company = PicketLine::DB.get_company(n.to_s)
-      erb(:'company/boycott', :locals => { :header => header, :head => head, :company => company })
+      
+      existing_reasons = PicketLine::DB.get_company_reasons(company[:id])
+      
+      erb(:'company/boycott', :locals => { :header => header, :head => head, :company => company, :existing_reasons => existing_reasons })
     end
     
     post '/boycott-form/:name' do |n|
@@ -42,11 +45,16 @@ module PicketLine
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       company = PicketLine::DB.get_company(n.to_s)
-      
-      # TODO: support getting a reason ID instead of a text reason
-      reason = PicketLine::DB.create_reason(params[:reason])
-      
-      PicketLine::DB.create_boycott(env['rack.session']['user'][:id], company[:id], reason[:id])
+
+      reason_id = params[:reason_id]
+
+      if reason_id.nil? || reason_id == ""
+        raise Exception.new("Please enter a reason.") unless (params[:reason] != "")
+        reason = PicketLine::DB.create_reason(params[:reason])
+        reason_id = reason[:id]
+      end
+
+      PicketLine::DB.create_boycott(env['rack.session']['user'][:id], company[:id], reason_id)
       redirect "/company/#{n}"
     end
     

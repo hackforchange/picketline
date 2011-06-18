@@ -88,6 +88,15 @@ module PicketLine
         reasons
       end
       
+      # get all the reasons that people are boycotting this company
+      def get_company_reasons(company_id)
+        boycotts = @@db["SELECT * FROM boycotts WHERE company_id = ?", company_id]
+        reason_ids = boycotts.collect { |b| b[:reason_id] }.uniq
+
+        reason_ids.collect do |id|
+          @@db["SELECT * FROM reasons WHERE id = ?", id].first
+        end
+      end
       
       def user_boycott_reason(user_id, company_id)
         boycott = @@db["SELECT * FROM boycotts WHERE company_id = ? AND user_id = ?", company_id, user_id].first

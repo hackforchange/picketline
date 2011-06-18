@@ -9,7 +9,11 @@
     Select from existing reasons:
     <!-- TODO Display all existing reasons -->
     <div>
-      Or choose your own reason: <input name='reason'/>
+      <% existing_reasons.each do |r| %>
+        <input type="radio" name="reason_id" value='<%= r[:id] %>' /> <%= r[:reason] %>
+        <br/>
+      <% end %>
+      <input type="radio" name="reason_id" value="" /> Or choose your own reason: <input name='reason'/>
     </div>
     <div>
       <input type='submit' Name='Boycott!' />
