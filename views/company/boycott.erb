@@ -1,0 +1,20 @@
+<html>
+<%= head %>
+<body>
+  <%= header %>
+  
+  Boycott <%= company[:name] %>!
+  
+  <form method='post' action='/company/boycott-form/<%= company[:name] %>'>
+    Select from existing reasons:
+    <!-- TODO Display all existing reasons -->
+    <div>
+      Or choose your own reason: <input name='reason'/>
+    </div>
+    <div>
+      <input type='submit' Name='Boycott!' />
+    </div>
+  </form>
+  
+</body>
+</html>

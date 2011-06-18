@@ -16,16 +16,37 @@ module PicketLine
     
     get '/:name' do |n|
       head = erb(:head)
-      header = erb(:header, :locals => { :user => @user })
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       company = PicketLine::DB.get_company(n.to_s)
       erb(:'company/page', :locals => { :header => header, :head => head, :company => company })
+    end
+    
+    get '/boycott/:name' do |n|
+      head = erb(:head)
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
+      company = PicketLine::DB.get_company(n.to_s)
+      erb(:'company/boycott', :locals => { :header => header, :head => head, :company => company })
+    end
+    
+    post '/boycott-form/:name' do |n|
+      raise Exception.new("Must be logged in") unless env['rack.session']['user']
+      puts "boycott #{n}"
+      head = erb(:head)
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
+      company = PicketLine::DB.get_company(n.to_s)
+      
+      # TODO: support getting a reason ID instead of a text reason
+      reason = PicketLine::DB.create_reason(params[:reason])
+      
+      PicketLine::DB.create_boycott(env['rack.session']['user'][:id], company[:id], reason[:id])
+      redirect "/company/#{n}"
     end
     
     private
     
     def page(section)
       head = erb(:head)
-      header = erb(:header, :locals => { :user => @user })
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       erb(section, :locals => { :header => header, :head => head })
     end
     

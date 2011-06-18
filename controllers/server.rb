@@ -8,17 +8,13 @@ module PicketLine
     set :public, File.dirname(__FILE__) + '/../static'
     set :views, File.dirname(__FILE__) + '/../views'
     
-    before do
-      @user = env['rack.session']['user']
-    end
-    
     get '/' do
       page :home_logged_out
     end
     
     get '/user/:name' do |n|
       head = erb(:head)
-      header = erb(:header, :locals => { :user => @user })
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       
       # get the other user data
       # TODO: display user's list of boycotts with reasons
@@ -30,7 +26,7 @@ module PicketLine
     
     def page(section)
       head = erb(:head)
-      header = erb(:header, :locals => { :user => @user })
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       erb(section, :locals => { :header => header, :head => head })
     end
     

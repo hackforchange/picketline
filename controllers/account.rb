@@ -40,7 +40,7 @@ module PicketLine
     
     def page(section)
       head = erb(:head)
-      header = erb(:header, :locals => { :user => @user })
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       erb(section, :locals => { :header => header, :head => head })
     end
     
