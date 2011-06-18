@@ -9,13 +9,12 @@ module PicketLine
     set :views, File.dirname(__FILE__) + '/views'
     
     before do
-      # TODO: check if the user has a session cookie and set their
-      # user_name and id here.
-      @user = { :name => "andrew", :id => 1 }
+      @user = env['rack.session']['user']
     end
     
     get '/' do
       puts @user
+      puts env['rack.session']
       page :index
     end
     
@@ -23,9 +22,25 @@ module PicketLine
       page :sign_up
     end
     
+    get '/log-in' do
+      page :log_in
+    end
+    
     post '/sign-up-form' do
       PicketLine::DB.create_user(params)
       "signed up"
+    end
+    
+    post '/login-form' do
+      user = PicketLine::DB.get_user(params[:username])      
+      raise Exception.new("no user") unless user
+      raise Exception.new("bad password") unless params["password"] == user[:password]
+      if user
+        env['rack.session']['user'] = user.keep_if { |k,v| [:username, :id].include?(k) }
+        "you are logged in"
+      else
+        "fail somehow"
+      end
     end
     
     private
