@@ -1,29 +1,24 @@
 require 'sinatra/base'
-require 'erb'
-
-require_relative '../lib/db'
 
 module PicketLine
-  class Server < Sinatra::Base
+  class Company < Sinatra::Base
     set :public, File.dirname(__FILE__) + '/../static'
     set :views, File.dirname(__FILE__) + '/../views'
-    
-    before do
-      @user = env['rack.session']['user']
+
+    get '/create' do
+      page(:'company/create')
     end
     
-    get '/' do
-      page :home_logged_out
+    post '/create-form' do
+      PicketLine::DB.create_company(params)
+      redirect "/company/#{params[:name]}"
     end
     
-    get '/user/:name' do |n|
+    get '/:name' do |n|
       head = erb(:head)
       header = erb(:header, :locals => { :user => @user })
-      
-      # get the other user data
-      # TODO: display user's list of boycotts with reasons
-      user = PicketLine::DB.get_user(n)
-      erb(:user, :locals => { :header => header, :head => head, :user => user})
+      company = PicketLine::DB.get_company(n.to_s)
+      erb(:'company/page', :locals => { :header => header, :head => head, :company => company })
     end
     
     private
@@ -35,4 +30,4 @@ module PicketLine
     end
     
   end
-end  
+end

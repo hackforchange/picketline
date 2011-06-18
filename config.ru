@@ -2,6 +2,7 @@ require 'rubygems'
 
 require ::File.dirname(__FILE__) + '/controllers/server'
 require ::File.dirname(__FILE__) + '/controllers/account'
+require ::File.dirname(__FILE__) + '/controllers/company'
 
 use Rack::Session::Cookie, :key => 'rack.session',
                            :path => '/',
@@ -14,4 +15,8 @@ end
 
 map "/account" do
   run PicketLine::Account
+end
+
+map "/company" do
+  run PicketLine::Company
 end
