@@ -89,6 +89,13 @@ module PicketLine
       end
       
       
+      def user_boycott_reason(user_id, company_id)
+        boycott = @@db["SELECT * FROM boycotts WHERE company_id = ? AND user_id = ?", company_id, user_id].first
+        return nil unless boycott
+        
+        @@db["SELECT * FROM reasons WHERE id = ?", boycott[:reason_id]].first[:reason]
+      end
+      
     end
   end
 end

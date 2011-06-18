@@ -5,7 +5,11 @@
   
   <%= company[:name] %>
   
-  <a href='/company/boycott/<%= company[:name] %>'>Boycott!</a>
+  <% if user_boycott_reason %>
+    You are boycotting because <%= user_boycott_reason %>
+  <% else %>
+    <a href='/company/boycott/<%= company[:name] %>'>Boycott!</a>
+  <% end %>
   
   <div id='boycotts'>
   <% boycotts.each do |b| %>

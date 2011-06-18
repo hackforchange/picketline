@@ -7,6 +7,7 @@ module PicketLine
 
     get '/sign-out' do
       env['rack.session']['user'] = nil
+      # TODO: redirect to referrer so the user stays on the same page
       redirect '/'
     end
     

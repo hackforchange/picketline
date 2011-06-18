@@ -21,7 +21,12 @@ module PicketLine
       
       boycotts = PicketLine::DB.get_company_boycotts(company[:id])
       
-      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts })
+      user_boycott_reason = nil
+      if env['rack.session']['user']
+        user_boycott_reason = PicketLine::DB.user_boycott_reason(env['rack.session']['user'][:id], company[:id])
+      end
+      
+      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason })
     end
     
     get '/boycott/:name' do |n|
