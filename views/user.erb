@@ -10,7 +10,7 @@
   <% boycotts.each do |b| %>
     <div>
       <span class='name'>
-        <%= b[:company_name] %>
+        <a href='/company/<%= b[:company_name] %>'><%= b[:company_name] %></a>
       </span>
       <span class='reason'>
         <%= b[:reason] %>
