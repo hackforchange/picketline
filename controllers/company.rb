@@ -14,6 +14,18 @@ module PicketLine
       redirect "/company/#{params[:name]}"
     end
     
+    # handles search and search results
+    get '/search' do
+      head = erb(:head)
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
+      results = nil
+      if params[:term]
+        results = PicketLine::DB.company_search(params[:term])
+      end
+      
+      erb(:'company/search', :locals => { :header => header, :head => head, :results => results })
+    end
+    
     get '/:name' do |n|
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
@@ -41,9 +53,6 @@ module PicketLine
     
     post '/boycott-form/:name' do |n|
       raise Exception.new("Must be logged in") unless env['rack.session']['user']
-      puts "boycott #{n}"
-      head = erb(:head)
-      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       company = PicketLine::DB.get_company(n.to_s)
 
       reason_id = params[:reason_id]

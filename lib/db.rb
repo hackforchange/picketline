@@ -45,6 +45,7 @@ module PicketLine
       end
       
       def create_boycott(user_id, company_id, reason_id)
+        connect
         hash = {}
         hash[:user_id] = user_id
         hash[:company_id] = company_id
@@ -53,6 +54,7 @@ module PicketLine
       end
       
       def create_reason(reason)
+        connect
         hash = {:reason => reason}
         hash[:id] = UUID.generate(:compact)
         @@db[:reasons].insert(hash)
@@ -61,6 +63,7 @@ module PicketLine
       
       # get a list of company names and reasons for a user
       def get_user_boycotts(user_id)
+        connect
         boycotts = @@db["SELECT * FROM boycotts WHERE user_id = ?", user_id]
         boycotts.collect do |b|
           hash = {}
@@ -72,6 +75,7 @@ module PicketLine
       
       # get a list of boycott reasons with number of users who boycott for that reason
       def get_company_boycotts(company_id)
+        connect
         boycotts = @@db["SELECT * FROM boycotts WHERE company_id = ?", company_id]
         reason_count = {}
         boycotts.each do |b|
@@ -90,6 +94,7 @@ module PicketLine
       
       # get all the reasons that people are boycotting this company
       def get_company_reasons(company_id)
+        connect
         boycotts = @@db["SELECT * FROM boycotts WHERE company_id = ?", company_id]
         reason_ids = boycotts.collect { |b| b[:reason_id] }.uniq
 
@@ -99,10 +104,17 @@ module PicketLine
       end
       
       def user_boycott_reason(user_id, company_id)
+        connect
         boycott = @@db["SELECT * FROM boycotts WHERE company_id = ? AND user_id = ?", company_id, user_id].first
         return nil unless boycott
         
         @@db["SELECT * FROM reasons WHERE id = ?", boycott[:reason_id]].first[:reason]
+      end
+      
+      def company_search(term)
+        connect
+        # TODO: sequel injection exploit
+        @@db[:companies].filter( :name.like("%#{term}%") )
       end
       
     end
