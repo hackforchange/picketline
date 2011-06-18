@@ -13,8 +13,11 @@ module PicketLine
     end
     
     get '/' do
-      puts @user
-      puts env['rack.session']
+      page :index
+    end
+    
+    get '/sign-out' do
+      env['rack.session']['user'] = nil
       page :index
     end
     
@@ -25,6 +28,7 @@ module PicketLine
     get '/log-in' do
       page :log_in
     end
+    
     
     post '/sign-up-form' do
       PicketLine::DB.create_user(params)
@@ -37,7 +41,7 @@ module PicketLine
       raise Exception.new("bad password") unless params["password"] == user[:password]
       if user
         env['rack.session']['user'] = user.keep_if { |k,v| [:username, :id].include?(k) }
-        "you are logged in"
+        page :index
       else
         "fail somehow"
       end
@@ -47,7 +51,7 @@ module PicketLine
     
     def page(section)
       head = erb(:head)
-      header = erb(:header)
+      header = erb(:header, :locals => { :user => @user })
       erb(section, :locals => { :header => header, :head => head })
     end
     
