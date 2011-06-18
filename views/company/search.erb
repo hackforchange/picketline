@@ -1,0 +1,23 @@
+<html>
+<%= head %>
+<body>
+  <%= header %>
+  
+Search for a company:
+<form method='get' action='/company/search'>
+<input name='term'/>
+<input type='submit' name='Submit' />
+</form>
+
+<% if results %>
+  <div id='results'>
+    <% results.each do |company| %>
+      <a href='/company/<%= company[:name] %>'> <%= company[:name] %> </a>
+    <% end %>
+  </div>
+<% end %>
+
+</div>
+
+</body>
+</html>
