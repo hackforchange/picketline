@@ -1,1 +1,8 @@
 /* css */
+
+#header {
+  height: 40px;
+  background-color: #74B446;
+  border-bottom: #4B9123 5px solid;
+}
+
