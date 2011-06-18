@@ -12,7 +12,7 @@ module PicketLine
     
     post '/sign-up-form' do
       PicketLine::DB.create_user(params)
-      page :thanks_for_joining
+      page :"account/thanks_for_joining"
     end
     
     post '/login-form' do
@@ -28,11 +28,11 @@ module PicketLine
     end
 
     get '/sign-up' do
-      page :sign_up
+      page :"account/sign_up"
     end
     
     get '/log-in' do
-      page :log_in
+      page :'account/log_in'
     end
     
     
