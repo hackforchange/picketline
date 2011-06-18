@@ -57,6 +57,17 @@ module PicketLine
         hash
       end
       
+      # get a list of company names and reasons for a user
+      def get_user_boycotts(user_id)
+        boycotts = @@db["SELECT * FROM boycotts WHERE user_id = ?", user_id]
+        boycotts.collect do |b|
+          hash = {}
+          hash[:reason] = @@db["SELECT * FROM reasons WHERE id = ?", b[:reason_id]].first[:reason]
+          hash[:company_name] = @@db["SELECT * FROM companies WHERE id = ?", b[:company_id]].first[:name]
+          hash
+        end
+      end
+      
     end
   end
 end

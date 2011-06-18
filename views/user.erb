@@ -4,5 +4,19 @@
   <%= header %>
   <h2><%= user[:username] %></h2>
   
+  <h2>What Im Boycotting</h2>
+  
+  <div id='boycotts'>
+  <% boycotts.each do |b| %>
+    <div>
+      <span class='name'>
+        <%= b[:company_name] %>
+      </span>
+      <span class='reason'>
+        <%= b[:reason] %>
+      </span>
+  <% end %>
+  </div>
+  
 </body>
 </html>
