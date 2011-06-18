@@ -16,7 +16,15 @@ module PicketLine
     
     get '/' do
       puts @user
-      erb :index
+      page :index
+    end
+    
+    private
+    
+    def page(section)
+      head = erb(:head)
+      header = erb(:header)
+      erb(section, :locals => { :header => header, :head => head })
     end
     
   end
