@@ -18,7 +18,7 @@ module PicketLine
     
     get '/sign-out' do
       env['rack.session']['user'] = nil
-      page :index
+      redirect '/'
     end
     
     get '/sign-up' do
@@ -41,7 +41,7 @@ module PicketLine
       raise Exception.new("bad password") unless params["password"] == user[:password]
       if user
         env['rack.session']['user'] = user.keep_if { |k,v| [:username, :id].include?(k) }
-        page :index
+        redirect '/'
       else
         "fail somehow"
       end
