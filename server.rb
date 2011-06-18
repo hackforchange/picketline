@@ -19,6 +19,15 @@ module PicketLine
       page :index
     end
     
+    get '/sign-up' do
+      page :sign_up
+    end
+    
+    post '/sign-up-form' do
+      PicketLine::DB.create_user(params)
+      "signed up"
+    end
+    
     private
     
     def page(section)
