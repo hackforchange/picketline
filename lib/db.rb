@@ -12,7 +12,9 @@ module PicketLine
         connect      	
         @@db.run "CREATE TABLE users (`id` CHAR(32) PRIMARY KEY, `username` varchar(255) UNIQUE, `email` varchar(255) UNIQUE, `password` varchar(32), `profile` varchar(255))"
         @@db.run "CREATE TABLE companies (`id` CHAR(32) PRIMARY KEY, `name` varchar(255) UNIQUE, `profile` varchar(255))"
-        @@db.run "CREATE TABLE boycotts (`user_id` CHAR(32) UNIQUE, `reason_id` CHAR(32) UNIQUE, `company_id` CHAR(32) UNIQUE)"
+        @@db.run "CREATE TABLE boycotts (`user_id` CHAR(32), `reason_id` CHAR(32), `company_id` CHAR(32))"
+        @@db.run "CREATE INDEX index_boycott_user ON boycotts (user_id)"
+        @@db.run "CREATE INDEX index_boycott_company ON boycotts (company_id)"
         @@db.run "CREATE TABLE reasons (`id` CHAR(32) UNIQUE, `reason` varchar(255))"
       end
       
@@ -67,6 +69,26 @@ module PicketLine
           hash
         end
       end
+      
+      # get a list of boycott reasons with number of users who boycott for that reason
+      def get_company_boycotts(company_id)
+        
+        boycotts = @@db["SELECT * FROM boycotts WHERE company_id = ?", company_id]
+        reason_count = {}
+        boycotts.each do |b|
+          reason_count[b[:reason_id]] ||= 0
+          reason_count[b[:reason_id]] += 1
+        end
+
+        reasons = []        
+        reason_count.each do |reason_id,count|
+          reason = @@db["SELECT * FROM reasons WHERE id = ?", reason_id].first[:reason]
+          reasons << [reason, count]
+        end
+        
+        reasons
+      end
+      
       
     end
   end

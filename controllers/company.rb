@@ -18,7 +18,10 @@ module PicketLine
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       company = PicketLine::DB.get_company(n.to_s)
-      erb(:'company/page', :locals => { :header => header, :head => head, :company => company })
+      
+      boycotts = PicketLine::DB.get_company_boycotts(company[:id])
+      
+      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts })
     end
     
     get '/boycott/:name' do |n|
