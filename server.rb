@@ -32,7 +32,7 @@ module PicketLine
     
     post '/sign-up-form' do
       PicketLine::DB.create_user(params)
-      "signed up"
+      page :thanks_for_joining
     end
     
     post '/login-form' do
