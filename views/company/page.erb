@@ -2,22 +2,58 @@
 <%= head %>
 <body>
   <%= header %>
-  
-  <%= company[:name] %>
-  
-  <% if user_boycott_reason %>
-    You are boycotting because <%= user_boycott_reason %>
-  <% else %>
-    <a href='/company/boycott/<%= company[:name] %>'>Boycott!</a>
-  <% end %>
-  
-  <div id='boycotts'>
-  <% boycotts.each do |b| %>
-    <div>
-      <%= b[1] %> people are boycotting because <%= b[0] %>
+  <div id='page' class='company'>
+    <div id='main'>
+      <div id='name'>
+        <div class='common'>
+          <img align='left' src='/images/safeway.jpg' height='50'/>
+          <%= company[:name] %>
+        </div>          
+        <div class='legal'>
+          TODO: legal name
+        </div>
+      </div>
+      <div id='parent'>
+        <!-- empty because safeway is the parent company -->
+      </div>
+      <div id='subsidiaries' class='section'>
+        <div class='title'>
+          Subsidiaries
+        </div>
+        TODO
+      </div>
+      <div id='contributions' class='section'>
+        <div class='title'>
+          Political Contributions
+        </div>
+        TODO
+      </div>
     </div>
-  <% end %>
+    <div id='sidebar'>
+      <div id='boycott'>
+        <% if user_boycott_reason %>
+          You are boycotting because <%= user_boycott_reason %>
+        <% else %>
+          <a class='button' href='/company/boycott/<%= company[:name] %>'>Boycott!</a>
+        <% end %>        
+        <div class='stats'>
+          <%= boycott_count %> boycotts
+        </div>
+      </div>
+      <div id='piegraph'>
+        <div class='title'>
+          Reasons
+        </div>
+        <div id='boycotts'>
+        <% boycotts.each do |b| %>
+          <div>
+            <%= b[1] %> people are boycotting because <%= b[0] %>
+          </div>
+        <% end %>
+        </div>
+      
+      </div>
+    </div>
   </div>
-  
 </body>
 </html>

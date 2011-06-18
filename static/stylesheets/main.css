@@ -1,8 +1,116 @@
 /* css */
 
+body {
+  font-family: sans-serif;
+  color: #333;
+}
+
+#page {
+  width: 900px;
+  margin: auto;
+}
+
 #header {
   height: 40px;
   background-color: #74B446;
   border-bottom: #4B9123 5px solid;
+}
+
+#name img {
+  float: right;
+}
+
+#header .name {
+ padding: 10px 0 0 60px;
+ font-size: 20px;
+ color: #222;
+ font-weight: bold;
+}
+#header img {
+  float: left;
+}
+
+#page {
+  position: relative;
+}
+
+#content {
+  position: relative;
+}
+
+#page.company #name img {
+  display: inline-block;
+  float: left;
+  padding-right: 10px;
+}
+
+#page.company #name {
+  height: 60px;
+}
+
+#page.company #name .common {
+  font-size: 30px;
+}
+
+#page.company #name .legal {
+  font-size: 18px;
+}
+
+#page.company #main {
+  width: 580px;
+  padding: 10px;
+  border: 1px solid pink;
+}
+
+#page.company #sidebar {
+  width: 280px;
+  padding: 10px;
+  border: 1px solid green;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#page.company .section {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0 10px 0;
+}
+
+#boycott .button {
+  display: inline-block;
+  text-align: center;
+  background: -webkit-gradient(linear, center top, center bottom, from(#024F95), to(#023067));
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  width: 70px;
+  border: 0px none;
+  -webkit-box-shadow: -1px 0px 2px 1px #CCC;
+  padding: 10px;
+  font-size: 20px;
+}
+
+#boycott {
+  padding-top: 10px;
+  text-align: center;
+}
+
+#boycott .button:hover {
+  color: #ddd;
+}
+
+#boycott .stats {
+  padding: 5px 0;
+  color: #999;
+}
+
+#piegraph {
+  padding: 10px 0;
+  text-align: center;
+}
+
+#piegraph .title {
+  font-size: 20px;
+  padding-bottom: 10px;
 }
 
