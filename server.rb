@@ -1,6 +1,8 @@
 require 'sinatra/base'
 require 'erb'
 
+require_relative 'lib/db'
+
 module PicketLine
   class Server < Sinatra::Base
     set :public, File.dirname(__FILE__) + '/static'
@@ -17,5 +19,13 @@ module PicketLine
       erb :index
     end
   
+    get '/connect' do
+      PicketLine::DB.connect
+    end
+    
+    get '/db_create' do
+      PicketLine::DB.create
+    end
+    
   end
 end  
