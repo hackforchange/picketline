@@ -7,5 +7,13 @@
   
   <a href='/company/boycott/<%= company[:name] %>'>Boycott!</a>
   
+  <div id='boycotts'>
+  <% boycotts.each do |b| %>
+    <div>
+      <%= b[1] %> people are boycotting because <%= b[0] %>
+    </div>
+  <% end %>
+  </div>
+  
 </body>
 </html>

@@ -72,7 +72,6 @@ module PicketLine
       
       # get a list of boycott reasons with number of users who boycott for that reason
       def get_company_boycotts(company_id)
-        
         boycotts = @@db["SELECT * FROM boycotts WHERE company_id = ?", company_id]
         reason_count = {}
         boycotts.each do |b|
@@ -80,7 +79,7 @@ module PicketLine
           reason_count[b[:reason_id]] += 1
         end
 
-        reasons = []        
+        reasons = []
         reason_count.each do |reason_id,count|
           reason = @@db["SELECT * FROM reasons WHERE id = ?", reason_id].first[:reason]
           reasons << [reason, count]
