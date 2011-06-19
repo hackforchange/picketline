@@ -158,3 +158,16 @@ h2 {
   font-size: 20px;
 }
 
+.section .title {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+#subsidiaries {
+  height: 150px;
+  overflow-y: auto;
+  padding-left: 10px;
+}
+
+

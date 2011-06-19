@@ -14,28 +14,30 @@
         <div id='parent'>
           <!-- empty because safeway is the parent company -->
         </div>
-        <div class='section'>
-          <div id='subsidiaries'>
-            <% if subsidiaries %>
-              <div class='title'>
-                Subsidiaries
-              </div>
-              TODO
-              <% subsidiaries.each do |s| %>
-                <%= s["company_name"] %>
-                <br/>
-              <% end %>
-            <% else %>
-              <a href='/company/add-subsidiaries/<%= company[:slug] %>'>Add Subsidiary Information</a>
-            <% end %>
-          </div>
-        </div>
         <div id='contributions' class='section'>
           <div class='title'>
             Political Contributions
           </div>
-            <script lanuage='javascript'> make_pie(<%= party_pie.to_json %>) </script>
+            <script lanuage='javascript'> make_pol_pie(<%= party_pie.to_json %>) </script>
             Details on <a target='_blank' href='http://influenceexplorer.com/organization/<%= company[:slug]%>/<%= company[:sunlight_id] %>'>Influence Explorer</a>
+        </div>
+        <div class='section'>
+          <% if subsidiaries %>
+            <div class='title'>
+              Subsidiaries
+            </div>
+            <div id='subsidiaries'>
+              <% subsidiaries.each do |s| %>
+                <%= s["company_name"] %>
+                <br/>
+              <% end %>
+            </div>
+            From the <a href='http://api.corpwatch.org/'>CorpWatch API</a>
+          <% else %>
+          <!-- TODO: put this link in once add subsidiary is a page that makes sense
+            <a href='/company/add-subsidiaries/<%= company[:slug] %>'>Add Subsidiary Information</a>
+            -->
+          <% end %>
         </div>
       </div>
       <div id='sidebar'>

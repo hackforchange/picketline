@@ -41,7 +41,18 @@ module PicketLine
         parameters["sunlight_id"] = parameters["id"]
         parameters.keep_if { |k,v| ["name", "slug", "sunlight_id"].include?(k) }
         parameters[:id] = UUID.generate(:compact)
+        parameters = corpwatch_hack(parameters)
+        
         @@db[:companies].insert(parameters)
+      end
+      
+      def corpwatch_hack(c)
+        if c["slug"] == "wal-mart-stores"
+          c["corpwatch_id"] = "cw_1901"
+        elsif c["slug"] == "safeway-inc"
+          c["corpwatch_id"] = "cw_1572"
+        end
+        c
       end
       
       def get_company(slug)
