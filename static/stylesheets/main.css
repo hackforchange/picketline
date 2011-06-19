@@ -67,6 +67,8 @@ body {
   display: inline-block;
   float: left;
   padding-right: 10px;
+  max-height: 60px;
+  max-width: 100px;
 }
 
 #page.company #name {
