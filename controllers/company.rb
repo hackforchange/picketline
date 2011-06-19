@@ -70,6 +70,25 @@ module PicketLine
       redirect "/company/#{n}"
     end
     
+    get '/add-subsidiaries/:name' do |n|
+      head = erb(:head)
+      header = erb(:header, :locals => { :user => env['rack.session']['user'] })
+      company = PicketLine::DB.get_company(n.to_s)
+            
+      erb(:'company/add_subsidiaries', :locals => { :header => header, :head => head, :company => company })
+    end
+    
+    post '/add-subsidiaries-form/:name' do |n|
+      raise Exception.new("Must be logged in") unless env['rack.session']['user']
+      company = PicketLine::DB.get_company(n.to_s)
+      
+      puts company[:id]
+      puts params[:corpwatch_id]
+      
+      PicketLine::DB.add_corpwatch(company[:id], params[:corpwatch_id])
+      redirect "/company/#{n}"
+    end
+    
     private
     
     def page(section)

@@ -20,7 +20,6 @@ module PicketLine
       # TODO: display user's list of boycotts with reasons
       user = PicketLine::DB.get_user(n)
       boycotts = PicketLine::DB.get_user_boycotts(user[:id])
-      puts boycotts
       
       erb(:user, :locals => { :header => header, :head => head, :user => user, :boycotts => boycotts})
     end

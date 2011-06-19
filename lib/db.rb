@@ -11,7 +11,7 @@ module PicketLine
       def create
         connect      	
         @@db.run "CREATE TABLE users (`id` CHAR(32) PRIMARY KEY, `username` varchar(255) UNIQUE, `email` varchar(255) UNIQUE, `password` varchar(32), `profile` varchar(255))"
-        @@db.run "CREATE TABLE companies (`id` CHAR(32) PRIMARY KEY, `name` varchar(255) UNIQUE, `profile` varchar(255))"
+        @@db.run "CREATE TABLE companies (`id` CHAR(32) PRIMARY KEY, `name` varchar(255) UNIQUE, `profile` varchar(255), `corpwatch_id` CHAR(32), `sunlight_id` CHAR(32))"
         @@db.run "CREATE TABLE boycotts (`user_id` CHAR(32), `reason_id` CHAR(32), `company_id` CHAR(32))"
         @@db.run "CREATE INDEX index_boycott_user ON boycotts (user_id)"
         @@db.run "CREATE INDEX index_boycott_company ON boycotts (company_id)"
@@ -117,6 +117,9 @@ module PicketLine
         @@db[:companies].filter( :name.like("%#{term}%") )
       end
       
+      def add_corpwatch(company_id, corpwatch_id)
+        @@db[:companies].where({:id => company_id}).update({:corpwatch_id => corpwatch_id})
+      end
     end
   end
 end

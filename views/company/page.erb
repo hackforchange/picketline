@@ -20,7 +20,9 @@
         <div class='title'>
           Subsidiaries
         </div>
-        TODO
+        <% if company[:corpwatch_id].nil? %>
+          <a href='/company/add-subsidiaries/<%= company[:name] %>'>Add Subsidiary Information</a>
+        <% end %>
       </div>
       <div id='contributions' class='section'>
         <div class='title'>
