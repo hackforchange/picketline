@@ -12,9 +12,10 @@ module PicketLine
     
       get '/' do
         if env['rack.session']['user']
-          page(erb(:home_logged_in))
+          boycotts = PicketLine::DB.get_user_boycotts(env['rack.session']['user'][:id])
+          page(erb(:home_logged_in, :locals => {:boycotts => boycotts}), :home)
         else
-          page(erb(:home_logged_out))
+          page(erb(:home_logged_out), :home)
         end
       end
     

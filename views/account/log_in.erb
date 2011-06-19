@@ -1,11 +1,19 @@
-<form action='/account/login-form' method='post'>
-  <div>
-    Username: <input name='username' />
-  </div>
-  <div>
-    Password: <input name='password' type='password' />
-  </div>
-  <div>
-    <input type='submit' name='submit'/>
-  </div>
-</form>
+<div class='section'>
+  Please enter your username and password.
+  <br/>
+  <br/>
+  <form action='/account/login-form' method='post'>
+    <div>
+      Username: <input class='big' name='username' />
+    </div>
+    <div>
+      Password: <input class='big' name='password' type='password' />
+    </div>
+    <br/>
+    <div>
+      <input type='submit' name='submit'/>
+    </div>
+    <br/>
+    No account? <a href='/account/sign-up'>Sign up</a>
+  </form>
+</div>

@@ -1,3 +1,33 @@
-Welcome to picketline
-
-<a href='/company/search'>Company Search</a>
+<div id='blurb'>
+  <h2>Welcome to picketline</h2>
+  <br>
+  <div>
+    Spread and inspire boycotts - create a link between corporate ethicality and profitability.
+  </div>
+  <br/>
+  <h2>Your Boycotts</h2>
+  <br/>
+  <% if boycotts.length > 0 %>
+    <table id='boycotts'>
+      <% boycotts.each do |b| %>
+        <tr>
+          <td>
+            <a href='/company/<%= b[:company_slug] %>'><%= b[:company_name] %></a>
+          </td>
+          <td>
+            <%= b[:reason] %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    None yet. Search for your most hated company ----->
+  <% end %>
+</div>
+<div id='right'>
+  <h3>Search Companies</h3>
+  <form method='get' action='/company/search'>
+    <input name='term'/>
+    <input type='submit' name='Submit' />
+  </form>
+</div>

@@ -13,8 +13,9 @@ module PicketLine
       end
     
       post '/sign-up-form' do
+        raise Exception.new("Passwords dont match") unless params[:password] == params[:confirm_password]
         PicketLine::DB.create_user(params)
-        page :"account/thanks_for_joining"
+        page(erb(:"account/thanks_for_joining"))
       end
     
       post '/login-form' do
@@ -30,11 +31,11 @@ module PicketLine
       end
 
       get '/sign-up' do
-        page :"account/sign_up"
+        page(erb(:"account/sign_up"))
       end
     
       get '/log-in' do
-        page :'account/log_in'
+        page(erb(:'account/log_in'))
       end
 
     end

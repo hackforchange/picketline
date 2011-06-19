@@ -1,15 +1,34 @@
-Boycott <%= company[:slug] %>!
-
-<form method='post' action='/company/boycott-form/<%= company[:slug] %>'>
-  Select from existing reasons:
-  <div>
-    <% existing_reasons.each do |r| %>
-      <input type="radio" name="reason_id" value='<%= r[:id] %>' /> <%= r[:reason] %>
-      <br/>
-    <% end %>
-    <input type="radio" name="reason_id" value="" /> Or choose your own reason: <input name='reason'/>
+<div class='section'>
+  <div class='title'>
+    Boycott <%= company[:name] %>!
   </div>
+  <br/>
   <div>
-    <input type='submit' Name='Boycott!' />
+    Please enter the primary reason you won't support <%= company[:name] %>. 
   </div>
-</form>
+  <br/>
+  <div>
+    Others will read this and be convinced to join you.
+  </div>
+  <br/>
+  <form method='post' action='/company/boycott-form/<%= company[:slug] %>'>
+    
+    <div>
+      <% if existing_reasons.length > 0 %>
+        <% existing_reasons.each do |r| %>
+          <input type="radio" name="reason_id" value='<%= r[:id] %>' /> <%= r[:reason] %>
+          <br/>
+        <% end %>
+        <input type="radio" name="reason_id" value="" />
+        Other:
+      <% else %>
+        Reason:
+      <% end %>
+      <input class='big' name='reason' length='200'/>
+    </div>
+    <br/>
+    <div>
+      <input type='submit' Name='Boycott!' />
+    </div>
+  </form>
+</div>

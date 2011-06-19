@@ -99,7 +99,7 @@ body {
   top: 0;
 }
 
-#page.company .section {
+.section {
   padding: 10px;
   margin: 10px;
 }
@@ -157,14 +157,14 @@ body {
   position: absolute;
   left: 20px;
   width: 500px;
-  top: 100px;
+  top: 20px;
 }
 
 #page.home #right {
   position: absolute;
   right: 0;
   width: 250px;
-  top: 80px;
+  top: 60px;
 }
 
 h2 {
@@ -222,5 +222,10 @@ h2 {
 
 a {
   color: #1B7D86;
+}
+
+input.big {
+  font-size: 18px;
+  width: 300px;
 }
 
