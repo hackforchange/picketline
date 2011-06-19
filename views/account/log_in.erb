@@ -1,23 +1,11 @@
-<html>
-<%= head %>
-<body>
-  <div id='page'>
-
-    <%= header %>
-  
-    <br/>
-  
-    <form action='/account/login-form' method='post'>
-      <div>
-        Username: <input name='username' />
-      </div>
-      <div>
-        Password: <input name='password' type='password' />
-      </div>
-      <div>
-        <input type='submit' name='submit'/>
-      </div>
-    </form>
+<form action='/account/login-form' method='post'>
+  <div>
+    Username: <input name='username' />
   </div>
-</body>
-</html>
+  <div>
+    Password: <input name='password' type='password' />
+  </div>
+  <div>
+    <input type='submit' name='submit'/>
+  </div>
+</form>

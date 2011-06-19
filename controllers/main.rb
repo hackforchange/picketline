@@ -12,22 +12,17 @@ module PicketLine
     
       get '/' do
         if env['rack.session']['user']
-          page :home_logged_in
+          page(erb(:home_logged_in))
         else
-          page :home_logged_out
+          page(erb(:home_logged_out))
         end
       end
     
       get '/user/:name' do |n|
-        head = erb(:head)
-        header = erb(:header, :locals => { :user => env['rack.session']['user'] })
-      
-        # get the other user data
-        # TODO: display user's list of boycotts with reasons
         user = PicketLine::DB.get_user(n)
         boycotts = PicketLine::DB.get_user_boycotts(user[:id])
       
-        erb(:user, :locals => { :header => header, :head => head, :user => user, :boycotts => boycotts})
+        page(erb(:user, :locals => { :user => user, :boycotts => boycotts}))
       end
     
     end

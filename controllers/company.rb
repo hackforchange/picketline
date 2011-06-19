@@ -10,19 +10,13 @@ module PicketLine
     
       # handles search and search results
       get '/search' do
-        head = erb(:head)
-        header = erb(:header, :locals => { :user => env['rack.session']['user'] })
         results = nil
-        if params[:term]
-          results = TransparencyData.search(params[:term])
-        end
-      
-        erb(:'company/search', :locals => { :header => header, :head => head, :results => results })
+        results = TransparencyData.search(params[:term]) if params[:term]
+
+        page(erb(:'company/search', :locals => { :results => results }))
       end
     
       get '/:name' do |slug|
-        head = erb(:head)
-        header = erb(:header, :locals => { :user => env['rack.session']['user'] })
         company = PicketLine::DB.get_company(slug.to_s)
         sunlight_company = TransparencyData.get(company[:sunlight_id])
       
@@ -36,7 +30,6 @@ module PicketLine
         if company[:corpwatch_id]
           subsidiaries = CorpWatch.children(company[:corpwatch_id])
         end
-        puts subsidiaries
       
         boycotts = PicketLine::DB.get_company_boycotts(company[:id])
       
@@ -47,18 +40,16 @@ module PicketLine
       
         boycott_count = 0
         boycotts.each { |b| boycott_count += b[1] }
-      
-        erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie, :subsidiaries => subsidiaries })
+
+        page(erb(:'company/page', :locals => { :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie, :subsidiaries => subsidiaries }))
       end
     
       get '/boycott/:name' do |slug|
-        head = erb(:head)
-        header = erb(:header, :locals => { :user => env['rack.session']['user'] })
         company = PicketLine::DB.get_company(slug.to_s)
       
         existing_reasons = PicketLine::DB.get_company_reasons(company[:id])
       
-        erb(:'company/boycott', :locals => { :header => header, :head => head, :company => company, :existing_reasons => existing_reasons })
+        page(erb(:'company/boycott', :locals => { :company => company, :existing_reasons => existing_reasons }))
       end
     
       post '/boycott-form/:name' do |slug|
@@ -78,11 +69,9 @@ module PicketLine
       end
     
       get '/add-subsidiaries/:name' do |slug|
-        head = erb(:head)
-        header = erb(:header, :locals => { :user => env['rack.session']['user'] })
         company = PicketLine::DB.get_company(slug.to_s)
             
-        erb(:'company/add_subsidiaries', :locals => { :header => header, :head => head, :company => company })
+        page(erb(:'company/add_subsidiaries', :locals => { :company => company }))
       end
     
       post '/add-subsidiaries-form/:name' do |slug|

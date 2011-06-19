@@ -1,21 +1,12 @@
-<html>
-<%= head %>
-<body>
-  <div id='page'>
-    <%= header %>
-  
-    Add the subsidiaries for <%= company[:name] %>
-    <br>
-    TODO: a slick UI for getting the proper CorpWatch ID
-  
-    <form method='post' action='/company/add-subsidiaries-form/<%= company[:slug] %>'>
-      <div>
-        CorpWatch ID: <input name='corpwatch_id'/>
-      </div>
-      <div>
-        <input type='submit' Name='Submit' />
-      </div>
-    </form>
+Add the subsidiaries for <%= company[:name] %>
+<br>
+TODO: a slick UI for getting the proper CorpWatch ID
+
+<form method='post' action='/company/add-subsidiaries-form/<%= company[:slug] %>'>
+  <div>
+    CorpWatch ID: <input name='corpwatch_id'/>
   </div>
-</body>
-</html>
+  <div>
+    <input type='submit' Name='Submit' />
+  </div>
+</form>

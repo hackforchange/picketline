@@ -1,31 +1,22 @@
-<html>
-<%= head %>
-<body>
-  <div id='page' class='home'>
-    <%= header %>
-    
-    <div id='blurb'>
-      <h2>Welcome to PicketLine</h2>
-      <br>
-      <div>
-        PicketLine is the social networking site for declaring and sharing your boycotts.
-      </div>
-      <br/>
-      <div>
-        Inspire your friends, family and community to support your boycott - or find out what everyone else is boycotting and why. 
-      </div>
-      <br/>
-      <div style='text-align: center;'>
-        <a class='button' href='/account/sign-up'>Sign Up</a>
-      </div>
-    </div>
-    <div id='right'>
-      <h3>Search Companies</h3>
-      <form method='get' action='/company/search'>
-        <input name='term'/>
-        <input type='submit' name='Submit' />
-      </form>
-    </div>
+<div id='blurb'>
+  <h2>Welcome to PicketLine</h2>
+  <br>
+  <div>
+    PicketLine is the social networking site for declaring and sharing your boycotts.
   </div>
-</body>
-</html>
+  <br/>
+  <div>
+    Inspire your friends, family and community to support your boycott - or find out what everyone else is boycotting and why. 
+  </div>
+  <br/>
+  <div style='text-align: center;'>
+    <a class='button' href='/account/sign-up'>Sign Up</a>
+  </div>
+</div>
+<div id='right'>
+  <h3>Search Companies</h3>
+  <form method='get' action='/company/search'>
+    <input name='term'/>
+    <input type='submit' name='Submit' />
+  </form>
+</div>

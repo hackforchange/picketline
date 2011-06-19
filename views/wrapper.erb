@@ -1,0 +1,30 @@
+<html>
+<head>
+  <link rel='stylesheet' href='/stylesheets/reset.css' />
+  <link rel='stylesheet' href='/stylesheets/main.css' />
+  <script src='http://code.jquery.com/jquery-1.6.1.min.js'></script>
+  <script src='/javascript/protovis-d3.2.js'></script>
+  <script src='/javascript/piegraph.js'></script>
+  <script src='/javascript/pol_piegraph.js'></script>
+</head>
+<body>
+  <div id='header'>
+    <a href='/'><img src='/images/signs.gif' height='45' /></a>
+    <div class='name'>
+      <a href='/'>PicketLine</a>
+    </div>
+    <div class='account'>
+    	<% if user %>
+    	  <a href='/user/<%= user[:username] %>'><%= user[:username] %></a>
+    	  |
+    	  <a href='/account/sign-out'>Sign Out</a>
+    	<% else %>
+    	  <a href='/account/log-in'>Log In</a>
+    	<% end %>
+    </div>
+  </div>
+  <div id='page' <% if page_type %>class='<%= page_type %>'<% end %> >
+    <%= content %>
+  </div>
+</body>
+</html>
