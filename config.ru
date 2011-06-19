@@ -1,6 +1,6 @@
 require 'rubygems'
 
-require ::File.dirname(__FILE__) + '/controllers/server'
+require ::File.dirname(__FILE__) + '/controllers/main'
 require ::File.dirname(__FILE__) + '/controllers/account'
 require ::File.dirname(__FILE__) + '/controllers/company'
 
