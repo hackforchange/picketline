@@ -1,24 +1,25 @@
 <html>
 <%= head %>
 <body>
-  <%= header %>
+  <div id='page'>
+    <%= header %>
   
-  Boycott <%= company[:name] %>!
+    Boycott <%= company[:name] %>!
   
-  <form method='post' action='/company/boycott-form/<%= company[:name] %>'>
-    Select from existing reasons:
-    <!-- TODO Display all existing reasons -->
-    <div>
-      <% existing_reasons.each do |r| %>
-        <input type="radio" name="reason_id" value='<%= r[:id] %>' /> <%= r[:reason] %>
-        <br/>
-      <% end %>
-      <input type="radio" name="reason_id" value="" /> Or choose your own reason: <input name='reason'/>
-    </div>
-    <div>
-      <input type='submit' Name='Boycott!' />
-    </div>
-  </form>
-  
+    <form method='post' action='/company/boycott-form/<%= company[:name] %>'>
+      Select from existing reasons:
+      <!-- TODO Display all existing reasons -->
+      <div>
+        <% existing_reasons.each do |r| %>
+          <input type="radio" name="reason_id" value='<%= r[:id] %>' /> <%= r[:reason] %>
+          <br/>
+        <% end %>
+        <input type="radio" name="reason_id" value="" /> Or choose your own reason: <input name='reason'/>
+      </div>
+      <div>
+        <input type='submit' Name='Boycott!' />
+      </div>
+    </form>
+  </div>
 </body>
 </html>

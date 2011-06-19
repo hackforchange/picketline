@@ -1,22 +1,23 @@
 <html>
 <%= head %>
 <body>
-  <%= header %>
-  <h2><%= user[:username] %></h2>
+  <div id='page'>
+    <%= header %>
+    <h2><%= user[:username] %></h2>
   
-  <h2>What Im Boycotting</h2>
+    <h2>What Im Boycotting</h2>
   
-  <div id='boycotts'>
-  <% boycotts.each do |b| %>
-    <div>
-      <span class='name'>
-        <a href='/company/<%= b[:company_name] %>'><%= b[:company_name] %></a>
-      </span>
-      <span class='reason'>
-        <%= b[:reason] %>
-      </span>
-  <% end %>
-  </div>
-  
+    <div id='boycotts'>
+    <% boycotts.each do |b| %>
+      <div>
+        <span class='name'>
+          <a href='/company/<%= b[:company_name] %>'><%= b[:company_name] %></a>
+        </span>
+        <span class='reason'>
+          <%= b[:reason] %>
+        </span>
+    <% end %>
+    </div>
+  </div>  
 </body>
 </html>

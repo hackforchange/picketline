@@ -1,8 +1,8 @@
 <html>
 <%= head %>
 <body>
-  <%= header %>
   <div id='page' class='company'>
+    <%= header %>
     <div id='main'>
       <div id='name'>
         <div class='common'>
@@ -16,13 +16,18 @@
       <div id='parent'>
         <!-- empty because safeway is the parent company -->
       </div>
-      <div id='subsidiaries' class='section'>
+      <div class='section'>
         <div class='title'>
           Subsidiaries
         </div>
-        <% if company[:corpwatch_id].nil? %>
-          <a href='/company/add-subsidiaries/<%= company[:name] %>'>Add Subsidiary Information</a>
-        <% end %>
+        <div id='subsidiaries'>
+          <% if company[:corpwatch_id].nil? %>
+            <a href='/company/add-subsidiaries/<%= company[:name] %>'>Add Subsidiary Information</a>
+          <% else %>
+            <iframe id='subsidiary_data' style='display: none' src='http://api.corpwatch.org/companies/<%= company[:corpwatch_id] %>/children.json' ></iframe>
+            <script src='javascript/subsidiaries.js'></script>
+          <% end %>
+        </div>
       </div>
       <div id='contributions' class='section'>
         <div class='title'>

@@ -1,28 +1,30 @@
 <html>
 <%= head %>
 <body>
-  <%= header %>
+  <div id='page'>
+    <%= header %>
   
-Search for a company:
-<form method='get' action='/company/search'>
-<input name='term'/>
-<input type='submit' name='Submit' />
-</form>
+    Search for a company:
+    <form method='get' action='/company/search'>
+    <input name='term'/>
+    <input type='submit' name='Submit' />
+    </form>
 
-<% if results %>
-  <div id='results'>
-    <% results.each do |company| %>
-      <a href='/company/<%= company[:name] %>'> <%= company[:name] %> </a>
+    <% if results %>
+      <div id='results'>
+        <% results.each do |company| %>
+          <a href='/company/<%= company[:name] %>'> <%= company[:name] %> </a>
+        <% end %>
+      </div>
     <% end %>
+
+    </div>
+
+    <div>
+    Cant find the company you are looking for? 
+
+    <a href='/company/create'>Add it</a>
   </div>
-<% end %>
-
-</div>
-
-<div>
-Cant find the company you are looking for? 
-
-<a href='/company/create'>Add it</a>
 
 </body>
 </html>

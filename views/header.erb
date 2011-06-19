@@ -1,10 +1,15 @@
 <div id='header'>
-	picketline header
-	<br/>
-	<% if user %>
-	  <%= user[:username] %>
-	  <a href='/account/sign-out'>Sign Out</a>
-	<% else %>
-	  <a href='/account/log-in'>Log In</a>
-	<% end %>
+  <img src='/images/signs.gif' height='45' />
+  <div class='name'>
+    PicketLine
+  </div>
+  <div class='account'>
+  	<% if user %>
+  	  <%= user[:username] %>
+  	  |
+  	  <a href='/account/sign-out'>Sign Out</a>
+  	<% else %>
+  	  <a href='/account/log-in'>Log In</a>
+  	<% end %>
+  </div>
 </div>

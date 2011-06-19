@@ -16,18 +16,39 @@ body {
   border-bottom: #4B9123 5px solid;
 }
 
+#header .account {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+}
+
+#header a, #header a:visited {
+ color: white; 
+}
+
+#header a {
+  text-decoration: none;
+}
+
+#header a:hover {
+  text-decoration: underline;
+}
+
 #name img {
   float: right;
 }
 
 #header .name {
- padding: 10px 0 0 60px;
+ padding: 10px 0 0 70px;
  font-size: 20px;
  color: #222;
  font-weight: bold;
 }
 #header img {
-  float: left;
+  position: absolute;
+  top: 0;
+  left: 5px;
 }
 
 #page {
