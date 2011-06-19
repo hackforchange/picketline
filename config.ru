@@ -10,13 +10,13 @@ use Rack::Session::Cookie, :key => 'rack.session',
                            :secret => 'pIcKeTlInE'
 
 map "/" do
-	run PicketLine::Server
+	run PicketLine::Server::Main
 end
 
 map "/account" do
-  run PicketLine::Account
+  run PicketLine::Server::Account
 end
 
 map "/company" do
-  run PicketLine::Company
+  run PicketLine::Server::Company
 end
