@@ -115,7 +115,7 @@ module PicketLine
       private
     
       def slugify(name)
-        name.gsub(" ", "-").gsub("_", "-").gsub("'", "").downcase
+        name.gsub(" ", "-").gsub("_", "-").gsub("'", "").gsub("/","").downcase
       end
     end
   end
