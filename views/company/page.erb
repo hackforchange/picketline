@@ -23,7 +23,9 @@
           <br/>
         <% end %>
       </div>
-      From the <a href='http://api.corpwatch.org/'>CorpWatch API</a>
+      <div class='footer'>
+        From the <a href='http://api.corpwatch.org/'>CorpWatch API</a>
+      </div>
     <% else %>
     <!-- TODO: put this link in once add subsidiary is a page that makes sense
       <a href='/company/add-subsidiaries/<%= company[:slug] %>'>Add Subsidiary Information</a>
@@ -37,22 +39,48 @@
       Political Contributions
     </div>
     <script lanuage='javascript'> make_pol_pie(<%= party_pie.to_json %>) </script>
-    Details on <a target='_blank' href='http://influenceexplorer.com/organization/<%= company[:slug]%>/<%= company[:sunlight_id] %>'>Influence Explorer</a>
+    <br/>
+    <div class='footer'>
+      More details on <a target='_blank' href='http://influenceexplorer.com/organization/<%= company[:slug]%>/<%= company[:sunlight_id] %>'>Influence Explorer</a>
+    </div>
   </div>
 </div>
 <div id='right'>
   <div id='boycott' class='section'>
-    <div id='piegraph'>
-      <script lanuage='javascript'> make_pie(<%= boycotts.to_json %>) </script>
+    <div id='personal'>
+      <% if user_boycott_reason %>
+        <div id='your_reason'>
+          <%= user_boycott_reason %>
+        </div>
+      <% else %>
+        <a class='button' href='/company/boycott/<%= company[:slug] %>'>Boycott!</a>
+      <% end %>
     </div>
     
-    <% if user_boycott_reason %>
-      You are boycotting <%= company[:name] %>
-      <div id='your_reason'>
-        <%= user_boycott_reason %>
+    <div id='reasons'>
+      <div class='title'>
+        Reasons to Boycott <%= company[:name] %>
       </div>
-    <% else %>
-      <a class='button' href='/company/boycott/<%= company[:slug] %>'>Boycott!</a>
-    <% end %>
+      <% if boycotts.length > 0 %>
+        <div id='piegraph'>
+          <script lanuage='javascript'>
+            window.boycotts = <%= boycotts.to_json %>;
+            make_pie(window.boycotts)
+          </script>
+        </div>
+        <% boycotts.each_with_index do |b,i| %>
+          <script lanuage='javascript'> pie_dot(window.boycotts[<%= i %>]) </script>
+          <%= b[0] %>
+        <% end %>
+      <% else %>
+        None yet. <a href='/company/boycott/<%= company[:slug] %>'>Add your own!</a>
+      <% end %>
+    </div>
   </div>
 </div>
+<div id='references'>
+  <div class='section'>
+    references
+  </div>
+</div>
+

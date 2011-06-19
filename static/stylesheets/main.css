@@ -77,7 +77,6 @@ body {
 #page.company #title {
   position: relative;
   width: 600px;
-  border: 1px solid pink;
   padding-top: 5px;
 }
 
@@ -86,25 +85,21 @@ body {
   width: 300px;
   position: absolute;
   top: 65px;
-  border: 1px solid green;
 }
 
 #page.company #left {
   position: relative;
   width: 300px;
-  border: 1px solid pink;
 }
 
 #page.company #right {
   width: 300px;
-  border: 1px solid green;
   position: absolute;
   right: 0;
   top: 0;
 }
 
 #page.company .section {
-  border-bottom: 1px solid #ccc;
   padding: 10px;
   margin: 10px;
 }
@@ -139,14 +134,16 @@ body {
 }
 #boycott #your_reason {
   border: 1px solid #999;
-  padding: 10px;
-  margin: 10px;
+  padding: 10px 10px;
+  margin: 0 10px 10px 10px;
   background-color: #F2F2F2;
 }
 
 #piegraph {
-  padding: 10px 0;
+  padding: 10px;
   text-align: center;
+  float:right;
+  display: inline-block;
 }
 
 #piegraph .title {
@@ -179,9 +176,35 @@ h2 {
 }
 
 #subsidiaries {
-  height: 150px;
+  height: 120px;
   overflow-y: auto;
   padding-left: 10px;
 }
 
+#page.company #references {
+  width: 600px;
+  position: relative;
+}
 
+#page.company #references .section {
+ border-top: 1px dashed #ccc;
+}
+
+#page.company #title #name {
+ border-bottom: 1px dashed #ccc;
+}
+
+.section {
+  position: relative;
+}
+
+.section .footer {
+  text-align: right;
+  color: #999;
+  padding-top: 12px;
+  font-size: 14px;
+}
+
+.section .footer a {
+  color: #666;
+}
