@@ -11,7 +11,7 @@ module PicketLine
       set :views, File.dirname(__FILE__) + '/../views'
     
       error LoggedOutException do
-        page(erb(:error, :locals => {:error => env['sinatra.error'].name}))
+        page(erb(:error, :locals => {:error => env['sinatra.error'].message}))
       end
 
       # handles search and search results
