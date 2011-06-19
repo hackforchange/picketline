@@ -1,35 +1,31 @@
 require 'sinatra/base'
+require_relative '../lib/transparency_data'
 
 module PicketLine
   class Company < Sinatra::Base
     set :public, File.dirname(__FILE__) + '/../static'
     set :views, File.dirname(__FILE__) + '/../views'
-
-    get '/create' do
-      page(:'company/create')
-    end
-    
-    post '/create-form' do
-      PicketLine::DB.create_company(params)
-      redirect "/company/#{params[:name]}"
-    end
     
     # handles search and search results
     get '/search' do
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       results = nil
+      td = nil
       if params[:term]
         results = PicketLine::DB.company_search(params[:term])
+        td = TransparencyData.search(params[:term])
       end
       
-      erb(:'company/search', :locals => { :header => header, :head => head, :results => results })
+      erb(:'company/search', :locals => { :header => header, :head => head, :results => results, :td => td })
     end
     
-    get '/:name' do |n|
+    get '/:name' do |slug|
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
-      company = PicketLine::DB.get_company(n.to_s)
+      company = PicketLine::DB.get_company(slug.to_s)
+      sunlight_company = TransparencyData.get(company[:sunlight_id])      
+      puts sunlight_company
       
       boycotts = PicketLine::DB.get_company_boycotts(company[:id])
       
@@ -41,13 +37,13 @@ module PicketLine
       boycott_count = 0
       boycotts.each { |b| boycott_count += b[1] }
       
-      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count })
+      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company })
     end
     
     get '/boycott/:name' do |n|
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
-      company = PicketLine::DB.get_company(n.to_s)
+      company = PicketLine::DB.get_company(slug.to_s)
       
       existing_reasons = PicketLine::DB.get_company_reasons(company[:id])
       
@@ -56,7 +52,7 @@ module PicketLine
     
     post '/boycott-form/:name' do |n|
       raise Exception.new("Must be logged in") unless env['rack.session']['user']
-      company = PicketLine::DB.get_company(n.to_s)
+      company = PicketLine::DB.get_company(slug.to_s)
 
       reason_id = params[:reason_id]
 
@@ -70,26 +66,34 @@ module PicketLine
       redirect "/company/#{n}"
     end
     
-    get '/add-subsidiaries/:name' do |n|
+    get '/add-subsidiaries/:name' do |slug|
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
-      company = PicketLine::DB.get_company(n.to_s)
+      company = PicketLine::DB.get_company(slug.to_s)
             
       erb(:'company/add_subsidiaries', :locals => { :header => header, :head => head, :company => company })
     end
     
-    post '/add-subsidiaries-form/:name' do |n|
+    post '/add-subsidiaries-form/:name' do |slug|
       raise Exception.new("Must be logged in") unless env['rack.session']['user']
-      company = PicketLine::DB.get_company(n.to_s)
-      
-      puts company[:id]
-      puts params[:corpwatch_id]
-      
+      company = PicketLine::DB.get_company(slug.to_s)
+            
       PicketLine::DB.add_corpwatch(company[:id], params[:corpwatch_id])
-      redirect "/company/#{n}"
+      redirect "/company/#{slug}"
+    end
+    
+    get '/sunlight/:guid' do |guid|
+      company = TransparencyData.get(guid)      
+      company["slug"] = slugify(company["name"])
+      PicketLine::DB.create_company_from_sunlight(company)
+      redirect "/company/#{company["slug"]}"
     end
     
     private
+    
+    def slugify(name)
+      name.gsub(" ", "-").gsub("_", "-").downcase
+    end
     
     def page(section)
       head = erb(:head)

@@ -7,12 +7,9 @@
       <div id='main'>
         <div id='name'>
           <div class='common'>
-            <img align='left' src='/images/safeway.jpg' height='50'/>
-            <%= company[:name] %>
+            <img align='left' src='<%= sunlight_company["metadata"]["photo_url"] %>' height='50'/>
+            <%= sunlight_company["name"] %>
           </div>          
-          <div class='legal'>
-            TODO: legal name
-          </div>
         </div>
         <div id='parent'>
           <!-- empty because safeway is the parent company -->

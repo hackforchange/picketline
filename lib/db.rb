@@ -11,7 +11,7 @@ module PicketLine
       def create
         connect      	
         @@db.run "CREATE TABLE users (`id` CHAR(32) PRIMARY KEY, `username` varchar(255) UNIQUE, `email` varchar(255) UNIQUE, `password` varchar(32), `profile` varchar(255))"
-        @@db.run "CREATE TABLE companies (`id` CHAR(32) PRIMARY KEY, `name` varchar(255) UNIQUE, `profile` varchar(255), `corpwatch_id` CHAR(32), `sunlight_id` CHAR(32))"
+        @@db.run "CREATE TABLE companies (`id` CHAR(32) PRIMARY KEY, `slug` varchar(255) UNIQUE, `profile` varchar(255), `corpwatch_id` CHAR(32), `sunlight_id` CHAR(32))"
         @@db.run "CREATE TABLE boycotts (`user_id` CHAR(32), `reason_id` CHAR(32), `company_id` CHAR(32))"
         @@db.run "CREATE INDEX index_boycott_user ON boycotts (user_id)"
         @@db.run "CREATE INDEX index_boycott_company ON boycotts (company_id)"
@@ -31,16 +31,17 @@ module PicketLine
         dataset.first
       end
       
-      def create_company(parameters)
+      def create_company_from_sunlight(parameters)
         connect
-        parameters.keep_if { |k,v| ["name"].include?(k) }
+        parameters["sunlight_id"] = parameters["id"]
+        parameters.keep_if { |k,v| ["slug", "sunlight_id"].include?(k) }
         parameters[:id] = UUID.generate(:compact)
         @@db[:companies].insert(parameters)
       end
       
-      def get_company(name)
+      def get_company(slug)
         connect
-        dataset = @@db["SELECT * FROM companies WHERE name = ?", name]
+        dataset = @@db["SELECT * FROM companies WHERE slug = ?", slug]
         dataset.first
       end
       
