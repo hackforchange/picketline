@@ -1,14 +1,19 @@
-Search for a company:
-<form method='get' action='/company/search'>
-  <input name='term'/>
-  <input type='submit' name='Submit' />
-</form>
+<div class='section search'>
+  <h2>Company Search</h2>
+  <br/>
+  <br/>
+  
+  <form method='get' action='/company/search'>
+    <input name='term' class='big' value='<%= params[:term] %>'/>
+    <input type='submit' value='Go' />
+  </form>
 
-<% if results %>
-  <div id='results'>
-    <% results.each do |company| %>
-      <a href='/company/sunlight/<%= company["id"] %>'> <%= company["name"] %> </a>
-      <br/>
-    <% end %>
-  </div>
-<% end %>
+  <% if results %>
+    <div id='results'>
+      <% results.each do |company| %>
+        <a href='/company/sunlight/<%= company["id"] %>'> <%= company["name"] %> </a>
+        <br/>
+      <% end %>
+    </div>
+  <% end %>
+</div>
