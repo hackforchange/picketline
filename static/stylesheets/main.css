@@ -139,3 +139,21 @@ body {
   padding-bottom: 10px;
 }
 
+#page.home #blurb {
+  position: absolute;
+  left: 20px;
+  width: 500px;
+  top: 100px;
+}
+
+#page.home #right {
+  position: absolute;
+  right: 0;
+  width: 250px;
+  top: 80px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
