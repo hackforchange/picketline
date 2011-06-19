@@ -1,10 +1,15 @@
 require_relative 'base'
+require_relative '../lib/exception'
 
 module PicketLine
   module Server
     class Account < Base
       set :public, File.dirname(__FILE__) + '/../static'
       set :views, File.dirname(__FILE__) + '/../views'
+  
+      error LoggedOutException do
+        page(erb(:error, :locals => {:error => env['sinatra.error'].message}))
+      end
 
       get '/sign-out' do
         env['rack.session']['user'] = nil
@@ -13,15 +18,15 @@ module PicketLine
       end
     
       post '/sign-up-form' do
-        raise Exception.new("Passwords dont match") unless params[:password] == params[:confirm_password]
+        raise LoggedOutException.new("Passwords dont match") unless params[:password] == params[:confirm_password]
         PicketLine::DB.create_user(params)
         page(erb(:"account/thanks_for_joining"))
       end
     
       post '/login-form' do
         user = PicketLine::DB.get_user(params[:username])      
-        raise Exception.new("no user") unless user
-        raise Exception.new("bad password") unless params["password"] == user[:password]
+        raise LoggedOutException.new("no user") unless user
+        raise LoggedOutException.new("bad password") unless params["password"] == user[:password]
         if user
           env['rack.session']['user'] = user.keep_if { |k,v| [:username, :id].include?(k) }
           redirect '/'
