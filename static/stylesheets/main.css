@@ -82,6 +82,7 @@ body {
 }
 
 #page.company #main {
+  position: relative;
   width: 580px;
   padding: 10px;
   border: 1px solid pink;
