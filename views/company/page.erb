@@ -1,21 +1,18 @@
-<div id='main'>
+<div id='title'>
   <div id='name'>
-    <div class='common'>
-      <img width='200' align='left' src='<%= sunlight_company["metadata"]["photo_url"] %>' />
-      <%= sunlight_company["name"] %>
+    <img width='200' align='left' src='<%= sunlight_company["metadata"]["photo_url"] %>' />
+    <%= sunlight_company["name"] %>
+    <br/>
+    <span class='stats'>
+      <%= boycott_count %> boycotts
+    </span>
+  </div>
+</div>
+<div id='left'>
+  <div class='section'>    
+    <div id='parent'>
+      <!-- empty because parent company -->
     </div>
-  </div>
-  <div id='parent'>
-    <!-- empty because parent company -->
-  </div>
-  <div id='contributions' class='section'>
-    <div class='title'>
-      Political Contributions
-    </div>
-    <script lanuage='javascript'> make_pol_pie(<%= party_pie.to_json %>) </script>
-    Details on <a target='_blank' href='http://influenceexplorer.com/organization/<%= company[:slug]%>/<%= company[:sunlight_id] %>'>Influence Explorer</a>
-  </div>
-  <div class='section'>
     <% if subsidiaries %>
       <div class='title'>
         Subsidiaries
@@ -34,23 +31,28 @@
     <% end %>
   </div>
 </div>
-<div id='sidebar'>
-  <div id='boycott'>
+<div id='middle'>
+  <div id='contributions' class='section'>
+    <div class='title'>
+      Political Contributions
+    </div>
+    <script lanuage='javascript'> make_pol_pie(<%= party_pie.to_json %>) </script>
+    Details on <a target='_blank' href='http://influenceexplorer.com/organization/<%= company[:slug]%>/<%= company[:sunlight_id] %>'>Influence Explorer</a>
+  </div>
+</div>
+<div id='right'>
+  <div id='boycott' class='section'>
+    <div id='piegraph'>
+      <script lanuage='javascript'> make_pie(<%= boycotts.to_json %>) </script>
+    </div>
+    
     <% if user_boycott_reason %>
-      You are boycotting because <%= user_boycott_reason %>
+      You are boycotting <%= company[:name] %>
+      <div id='your_reason'>
+        <%= user_boycott_reason %>
+      </div>
     <% else %>
       <a class='button' href='/company/boycott/<%= company[:slug] %>'>Boycott!</a>
     <% end %>
-    <div class='stats'>
-      <%= boycott_count %> boycotts
-    </div>
-  </div>
-  <div id='piegraph'>
-    <div class='title'>
-      Reasons
-    </div>
-    <div id='boycotts'>
-      <script lanuage='javascript'> make_pie(<%= boycotts.to_json %>) </script>
-    </div>
   </div>
 </div>
