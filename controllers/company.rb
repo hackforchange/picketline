@@ -2,6 +2,7 @@ require_relative 'base'
 require_relative '../lib/api/transparency_data'
 require_relative '../lib/api/corpwatch'
 require_relative '../lib/model/company'
+require_relative '../lib/exception'
 
 module PicketLine
   module Server
@@ -9,6 +10,10 @@ module PicketLine
       set :public, File.dirname(__FILE__) + '/../static'
       set :views, File.dirname(__FILE__) + '/../views'
     
+      error LoggedOutException do
+        page(erb(:error, :locals => {:error => env['sinatra.error'].name}))
+      end
+
       # handles search and search results
       get '/search' do
         results = params[:term] ? TransparencyData.search(params[:term]) : nil
@@ -55,13 +60,13 @@ module PicketLine
       end
     
       post '/boycott-form/:name' do |slug|
-        raise Exception.new("Must be logged in") unless env['rack.session']['user']
+        raise LoggedOutException.new("Must be logged in") unless env['rack.session']['user']
         company = PicketLine::DB.get_company(slug.to_s)
 
         reason_id = params[:reason_id]
 
         if reason_id.nil? || reason_id == ""
-          raise Exception.new("Please enter a reason.") unless (params[:reason] != "")
+          raise LoggedOutException.new("Please enter a reason.") unless (params[:reason] != "")
           reason = PicketLine::DB.create_reason(params[:reason])
           reason_id = reason[:id]
         end
@@ -77,7 +82,7 @@ module PicketLine
       end
     
       post '/add-subsidiaries-form/:name' do |slug|
-        raise Exception.new("Must be logged in") unless env['rack.session']['user']
+        raise LoggedOutException.new("Must be logged in") unless env['rack.session']['user']
         company = PicketLine::DB.get_company(slug.to_s)
             
         PicketLine::DB.add_corpwatch(company[:id], params[:corpwatch_id])
