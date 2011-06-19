@@ -47,9 +47,9 @@ module PicketLine
       end
       
       def corpwatch_hack(c)
-        if c["slug"] == "wal-mart-stores"
+        if c[:slug] == "wal-mart-stores"
           c["corpwatch_id"] = "cw_1901"
-        elsif c["slug"] == "safeway-inc"
+        elsif c[:slug] == "safeway-inc"
           c["corpwatch_id"] = "cw_1572"
         end
         c
