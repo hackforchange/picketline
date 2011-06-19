@@ -23,7 +23,7 @@ body {
   color: white;
 }
 
-#header a, #header a:visited {
+#header .account a, #header .account a:visited {
  color: white; 
 }
 
@@ -31,7 +31,7 @@ body {
   text-decoration: none;
 }
 
-#header a:hover {
+#header .account a:hover {
   text-decoration: underline;
 }
 
@@ -41,10 +41,14 @@ body {
 
 #header .name {
  padding: 10px 0 0 70px;
- font-size: 20px;
- color: #222;
- font-weight: bold;
 }
+
+#header .name a {
+  font-size: 20px;
+  color: #222;
+  font-weight: bold;
+}
+
 #header img {
   position: absolute;
   top: 0;
@@ -97,7 +101,7 @@ body {
   padding: 10px 0 10px 0;
 }
 
-#boycott .button {
+.button {
   display: inline-block;
   text-align: center;
   background: -webkit-gradient(linear, center top, center bottom, from(#024F95), to(#023067));

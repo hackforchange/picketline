@@ -1,11 +1,11 @@
 <div id='header'>
-  <img src='/images/signs.gif' height='45' />
+  <a href='/'><img src='/images/signs.gif' height='45' /></a>
   <div class='name'>
-    PicketLine
+    <a href='/'>PicketLine</a>
   </div>
   <div class='account'>
   	<% if user %>
-  	  <%= user[:username] %>
+  	  <a href='/user/<%= user[:username] %>'><%= user[:username] %></a>
   	  |
   	  <a href='/account/sign-out'>Sign Out</a>
   	<% else %>
