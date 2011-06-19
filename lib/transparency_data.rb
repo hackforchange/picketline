@@ -19,6 +19,14 @@ class TransparencyData
       end
       JSON.parse(res.body)
     end
+    
+    def party_breakdown(id)
+      res = Net::HTTP.start(HOST, 80) do |http|
+         http.get("/api/1.0/aggregates/org/#{id}/recipients/party_breakdown.json?apikey=#{APIKEY}")
+      end
+      JSON.parse(res.body)
+    end
+    
   end
     
 end

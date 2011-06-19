@@ -22,8 +22,13 @@ module PicketLine
       head = erb(:head)
       header = erb(:header, :locals => { :user => env['rack.session']['user'] })
       company = PicketLine::DB.get_company(slug.to_s)
-      sunlight_company = TransparencyData.get(company[:sunlight_id])      
-      puts sunlight_company
+      sunlight_company = TransparencyData.get(company[:sunlight_id])
+      
+      party_breakdown = TransparencyData.party_breakdown(company[:sunlight_id])
+      party_pie = []
+      party_breakdown.each do |k,v|
+        party_pie << [k, v[1].to_i]
+      end
       
       boycotts = PicketLine::DB.get_company_boycotts(company[:id])
       
@@ -35,7 +40,7 @@ module PicketLine
       boycott_count = 0
       boycotts.each { |b| boycott_count += b[1] }
       
-      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company })
+      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie })
     end
     
     get '/boycott/:name' do |slug|
@@ -85,11 +90,11 @@ module PicketLine
       
       unless company
         company = TransparencyData.get(guid)
-        company[:slug] = slugify(company["name"])
+        company["slug"] = slugify(company["name"])
         PicketLine::DB.create_company_from_sunlight(company)
       end
       
-      redirect "/company/#{company[:slug]}"
+      redirect "/company/#{company['slug']}"
     end
     
     private
