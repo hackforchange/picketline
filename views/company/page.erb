@@ -1,11 +1,16 @@
 <div id='title'>
   <div id='name'>
     <img width='200' align='left' src='<%= sunlight_company["metadata"]["photo_url"] %>' />
-    <%= sunlight_company["name"] %>
+    Boycott <%= sunlight_company["name"] %>
     <br/>
     <span class='stats'>
-      <%= boycott_count %> boycotts
-    </span>
+      <%= boycott_count %> people are boycotting
+    </span>    
+    
+    <iframe src="http://www.facebook.com/plugins/like.php?href= http://picketline.us/company/<%= company[:slug] %>&amp;layout=button_count"
+     scrolling="no" frameborder="0" 
+     style="margin-top: 4px; border:none; position: absolute; right: 0; width:100px; height:80px"></iframe>
+    
   </div>
 </div>
 <div id='left'>
