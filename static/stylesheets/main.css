@@ -116,6 +116,7 @@ body {
   -webkit-box-shadow: -1px 0px 2px 1px #CCC;
   padding: 10px;
   font-size: 20px;
+  margin-bottom: 10px;
 }
 
 #boycott {
@@ -131,6 +132,7 @@ body {
   padding: 5px 0;
   color: #999;
   font-size: 14px;
+  display: inline-block;
 }
 #boycott #your_reason {
   border: 1px solid #999;
@@ -181,12 +183,12 @@ h2 {
   padding-left: 10px;
 }
 
-#page.company #references {
+#page.company #sites {
   width: 600px;
   position: relative;
 }
 
-#page.company #references .section {
+#page.company #sites .section {
  border-top: 1px dashed #ccc;
 }
 
