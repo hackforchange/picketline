@@ -1,15 +1,18 @@
-<h2><%= user[:username] %></h2>
+<div class='section'>
   
-<h2>What Im Boycotting</h2>
-
-<div id='boycotts'>
-<% boycotts.each do |b| %>
-  <div>
-    <span class='name'>
-      <a href='/company/<%= b[:company_slug] %>'><%= b[:company_name] %></a>
-    </span>
-    <span class='reason'>
-      <%= b[:reason] %>
-    </span>
-<% end %>
+  <h2>Profile: <%= user[:username] %></h2>
+  <br/>
+  
+  <h2>What Im Boycotting</h2>
+  <br/>
+  
+  <div id='boycotts'>
+  <% boycotts.each do |b| %>
+    <div>
+      <span class='name'>
+        <a href='/company/<%= b[:company_slug] %>'><%= b[:company_name] %></a> because 
+        <%= b[:reason] %>
+      </span>
+  <% end %>
+  </div>
 </div>
