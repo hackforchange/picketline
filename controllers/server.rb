@@ -9,7 +9,11 @@ module PicketLine
     set :views, File.dirname(__FILE__) + '/../views'
     
     get '/' do
-      page :home_logged_out
+      if env['rack.session']['user']
+        page :home_logged_in
+      else
+        page :home_logged_out
+      end
     end
     
     get '/user/:name' do |n|
