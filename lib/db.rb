@@ -147,6 +147,11 @@ module PicketLine
         connect
         @@db["SELECT * FROM companies WHERE sunlight_id = ?", guid].first
       end
+      
+      def update_company_profile(id, profile)
+        @@db[:companies].where({:id => id}).update({:profile => profile})
+      end
+      
     end
   end
 end

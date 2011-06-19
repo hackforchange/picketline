@@ -2,7 +2,6 @@ Boycott <%= company[:slug] %>!
 
 <form method='post' action='/company/boycott-form/<%= company[:slug] %>'>
   Select from existing reasons:
-  <!-- TODO Display all existing reasons -->
   <div>
     <% existing_reasons.each do |r| %>
       <input type="radio" name="reason_id" value='<%= r[:id] %>' /> <%= r[:reason] %>

@@ -41,7 +41,7 @@ module PicketLine
         boycott_count = 0
         boycotts.each { |b| boycott_count += b[1] }
 
-        critics = company[:profile][:critics]
+        critics = company[:profile]['critics']
         
         page(erb(:'company/page', :locals => { :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie, :subsidiaries => subsidiaries, :critics => critics }), :company)
       end
@@ -94,6 +94,17 @@ module PicketLine
         end
       
         redirect "/company/#{company[:slug]}"
+      end
+    
+      get '/add-link/:slug' do |slug|
+        # TODO: check params['type'] == 'sites' or 'press'
+        company = PicketLine::Company.get_by_slug(slug)
+        page(erb(:'company/add_link', {:locals => {:company => company, :type => params[:type]}}))
+      end
+      
+      post '/add-link-form/:slug' do |slug|
+        PicketLine::Company.add_link(slug, params[:url], params[:blurb], params[:title], params[:type])
+        redirect "/company/#{slug}"
       end
     
       private

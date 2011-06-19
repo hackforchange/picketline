@@ -183,12 +183,12 @@ h2 {
   padding-left: 10px;
 }
 
-#page.company #sites {
+#page.company #references {
   width: 600px;
   position: relative;
 }
 
-#page.company #sites .section {
+#page.company #references .section {
  border-top: 1px dashed #ccc;
 }
 
@@ -215,3 +215,12 @@ h2 {
   border-left: 1px dashed #ccc;
   padding-left: 15px;
 }
+
+.add_link {
+  text-align: right;
+}
+
+a {
+  color: #1B7D86;
+}
+

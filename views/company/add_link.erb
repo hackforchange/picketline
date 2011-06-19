@@ -1,0 +1,15 @@
+Please enter a link which is relevant to <%= company[:name] %>.
+
+Enter a description as well, in your own words, or copy the first few hundred characters from the text on the page.
+
+<form method='post' action='/company/add-link-form/<%= company[:slug] %>'>
+  <input type='hidden' name='type' value='<%= params[:type] %>' />
+  Title: <input name="title" />
+  <br/>
+  URL: <input name="url" />
+  <br/>
+  Description: <textarea name="blurb" ></textarea>
+  <br/>
+  <input type='submit' Name='Add' />
+
+</form>

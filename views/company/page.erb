@@ -78,31 +78,43 @@
     </div>
   </div>
 </div>
-<div id='sites'>
-  <div class='section'>
-    <div class='title'>
-      Web sites critical of <%= company[:name] %>
-    </div>
-    <div class='link_list'>
-      <% critics[:sites].each do |p| %>
-        <div>
-          <a href='<%= p[:url] %>'><%= p[:blurb] %></a>
+<div id='references'>
+  <div id='sites'>
+    <div class='section'>
+      <div class='title'>
+        Web sites critical of <%= company[:name] %>
+      </div>
+      <div class='link_list'>
+        <% critics['sites'].each do |p| %>
+          <div>
+            <a target='_blank' href='<%= p['url'] %>'><%= p['title'] %></a>
+            &nbsp;
+            <%= p['blurb'] %>
+          </div>
+        <% end %>
+        <div class='add_link'>
+          <a href='/company/add-link/<%= company[:slug] %>?type=sites'>[+] add site</a>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
-</div>
-<div id='posts'>
-  <div class='section'>
-    <div class='title'>
-      Press which is critical of <%= company[:name] %>
-    </div>
-    <div class='link_list'>
-      <% critics[:posts].each do |p| %>
-        <div>
-          <a href='<%= p[:url] %>'><%= p[:blurb] %></a>
+  <div id='press'>
+    <div class='section'>
+      <div class='title'>
+        Press which is critical of <%= company[:name] %>
+      </div>
+      <div class='link_list'>
+        <% critics['press'].each do |p| %>
+          <div>
+            <a target='_blank' href='<%= p['url'] %>'><%= p['title'] %></a>
+            &nbsp;
+            <%= p['blurb'] %>
+          </div>
+        <% end %>
+        <div class='add_link'>
+          <a href='/company/add-link/<%= company[:slug] %>?type=press'>[+] add link</a>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
