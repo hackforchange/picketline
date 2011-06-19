@@ -1,6 +1,6 @@
 require_relative 'base'
-require_relative '../lib/transparency_data'
-require_relative '../lib/corpwatch'
+require_relative '../lib/api/transparency_data'
+require_relative '../lib/api/corpwatch'
 
 module PicketLine
   module Server
@@ -10,8 +10,7 @@ module PicketLine
     
       # handles search and search results
       get '/search' do
-        results = nil
-        results = TransparencyData.search(params[:term]) if params[:term]
+        results = params[:term] ? TransparencyData.search(params[:term]) : nil
 
         page(erb(:'company/search', :locals => { :results => results }))
       end
@@ -41,7 +40,7 @@ module PicketLine
         boycott_count = 0
         boycotts.each { |b| boycott_count += b[1] }
 
-        page(erb(:'company/page', :locals => { :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie, :subsidiaries => subsidiaries }))
+        page(erb(:'company/page', :locals => { :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie, :subsidiaries => subsidiaries }), :company)
       end
     
       get '/boycott/:name' do |slug|
@@ -83,15 +82,15 @@ module PicketLine
       end
     
       get '/sunlight/:guid' do |guid|
-        company = PicketLine::DB.sunlight_company(guid)
-      
+        company = PicketLine::DB.company_by_sunlight_id(guid)
+
         unless company
           company = TransparencyData.get(guid)
-          company["slug"] = slugify(company["name"])
+          company[:slug] = slugify(company["name"])
           PicketLine::DB.create_company_from_sunlight(company)
         end
       
-        redirect "/company/#{company['slug']}"
+        redirect "/company/#{company[:slug]}"
       end
     
       private

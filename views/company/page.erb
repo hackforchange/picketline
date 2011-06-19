@@ -1,59 +1,56 @@
-<div id='content'>
-  <div id='main'>
-    <div id='name'>
-      <div class='common'>
-        <img align='left' src='<%= sunlight_company["metadata"]["photo_url"] %>' height='50'/>
-        <%= sunlight_company["name"] %>
-      </div>          
+<div id='main'>
+  <div id='name'>
+    <div class='common'>
+      <img align='left' src='<%= sunlight_company["metadata"]["photo_url"] %>' height='50'/>
+      <%= sunlight_company["name"] %>
+    </div>          
+  </div>
+  <div id='parent'>
+    <!-- empty because safeway is the parent company -->
+  </div>
+  <div id='contributions' class='section'>
+    <div class='title'>
+      Political Contributions
     </div>
-    <div id='parent'>
-      <!-- empty because safeway is the parent company -->
-    </div>
-    <div id='contributions' class='section'>
+    <script lanuage='javascript'> make_pol_pie(<%= party_pie.to_json %>) </script>
+    Details on <a target='_blank' href='http://influenceexplorer.com/organization/<%= company[:slug]%>/<%= company[:sunlight_id] %>'>Influence Explorer</a>
+  </div>
+  <div class='section'>
+    <% if subsidiaries %>
       <div class='title'>
-        Political Contributions
+        Subsidiaries
       </div>
-        <script lanuage='javascript'> make_pol_pie(<%= party_pie.to_json %>) </script>
-        Details on <a target='_blank' href='http://influenceexplorer.com/organization/<%= company[:slug]%>/<%= company[:sunlight_id] %>'>Influence Explorer</a>
-    </div>
-    <div class='section'>
-      <% if subsidiaries %>
-        <div class='title'>
-          Subsidiaries
-        </div>
-        <div id='subsidiaries'>
-          <% subsidiaries.each do |s| %>
-            <%= s["company_name"] %>
-            <br/>
-          <% end %>
-        </div>
-        From the <a href='http://api.corpwatch.org/'>CorpWatch API</a>
-      <% else %>
-      <!-- TODO: put this link in once add subsidiary is a page that makes sense
-        <a href='/company/add-subsidiaries/<%= company[:slug] %>'>Add Subsidiary Information</a>
-        -->
-      <% end %>
+      <div id='subsidiaries'>
+        <% subsidiaries.each do |s| %>
+          <%= s["company_name"] %>
+          <br/>
+        <% end %>
+      </div>
+      From the <a href='http://api.corpwatch.org/'>CorpWatch API</a>
+    <% else %>
+    <!-- TODO: put this link in once add subsidiary is a page that makes sense
+      <a href='/company/add-subsidiaries/<%= company[:slug] %>'>Add Subsidiary Information</a>
+      -->
+    <% end %>
+  </div>
+</div>
+<div id='sidebar'>
+  <div id='boycott'>
+    <% if user_boycott_reason %>
+      You are boycotting because <%= user_boycott_reason %>
+    <% else %>
+      <a class='button' href='/company/boycott/<%= company[:slug] %>'>Boycott!</a>
+    <% end %>
+    <div class='stats'>
+      <%= boycott_count %> boycotts
     </div>
   </div>
-  <div id='sidebar'>
-    <div id='boycott'>
-      <% if user_boycott_reason %>
-        You are boycotting because <%= user_boycott_reason %>
-      <% else %>
-        <a class='button' href='/company/boycott/<%= company[:slug] %>'>Boycott!</a>
-      <% end %>
-      <div class='stats'>
-        <%= boycott_count %> boycotts
-      </div>
+  <div id='piegraph'>
+    <div class='title'>
+      Reasons
     </div>
-    <div id='piegraph'>
-      <div class='title'>
-        Reasons
-      </div>
-      <div id='boycotts'>
-        <script lanuage='javascript'> make_pie(<%= boycotts.to_json %>) </script>
-      </div>
-  
+    <div id='boycotts'>
+      <script lanuage='javascript'> make_pie(<%= boycotts.to_json %>) </script>
     </div>
   </div>
 </div>

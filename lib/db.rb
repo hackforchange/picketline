@@ -39,7 +39,7 @@ module PicketLine
       def create_company_from_sunlight(parameters)
         connect
         parameters["sunlight_id"] = parameters["id"]
-        parameters.keep_if { |k,v| ["name", "slug", "sunlight_id"].include?(k) }
+        parameters.keep_if { |k,v| ["name", :slug, "sunlight_id"].include?(k) }
         parameters[:id] = UUID.generate(:compact)
         parameters = corpwatch_hack(parameters)
         
@@ -141,7 +141,7 @@ module PicketLine
         @@db[:companies].where({:id => company_id}).update({:corpwatch_id => corpwatch_id})
       end
       
-      def sunlight_company(guid)
+      def company_by_sunlight_id(guid)
         connect
         @@db["SELECT * FROM companies WHERE sunlight_id = ?", guid].first
       end
