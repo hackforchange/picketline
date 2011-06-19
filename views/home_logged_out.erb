@@ -21,32 +21,13 @@
   <h2>Recent Boycotts</h2>
   <br/>
   <% if boycotts.length > 0 %>
-    <table id='boycotts'>
-      <tr>
-        <td>
-          User
-        </td>
-        <td>
-          Company
-        </td>
-        <td>
-          Reason
-        </td>
-      </tr>
+    <div id='boycotts' >
       <% boycotts.each do |b| %>
-        <tr>
-          <td>
-            <%= b[:user_name] %>
-          </td>
-          <td>
-            <a href='/company/<%= b[:company_slug] %>'><%= b[:company_name] %></a>
-          </td>
-          <td>
-            <%= b[:reason] %>
-          </td>
-        </tr>
+        <div>
+            <a href='/user/<%= b[:username] %>'><%= b[:username] %></a> boycotted <a href='/company/<%= b[:company_slug] %>'><%= b[:company_name] %></a> because <%= b[:reason] %>
+        </div>
       <% end %>
-    </table>
+    </div>
   <% else %>
     None yet. Search for your most hated company ----->
   <% end %>

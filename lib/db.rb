@@ -108,7 +108,7 @@ module PicketLine
           hash[:company_name] = company[:name]
           hash[:company_slug] = company[:slug]
           user = @@db["SELECT * FROM users WHERE id = ?", b[:user_id]].first
-          hash[:user_name] = user[:name]
+          hash[:username] = user[:username]
           hash
         end
       end
