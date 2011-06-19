@@ -1,9 +1,6 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    crack (0.1.8)
-    httparty (0.7.8)
-      crack (= 0.1.8)
     macaddr (1.0.0)
     rack (1.3.0)
     sequel (3.24.1)
@@ -18,7 +15,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  httparty
   sequel
   sinatra
   uuid
