@@ -1,6 +1,5 @@
 function make_pie(data) {
   var data_total = pv.sum(pv.map(data, function(x) { return x[1] }));
-  data.sort(function(a,b) { return b[1] - a[1] });
   
   var c = 100,
       r = c / 2,

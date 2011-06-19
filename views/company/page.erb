@@ -69,7 +69,8 @@
         <div id='piegraph'>
           <script lanuage='javascript'>
             window.boycotts = <%= boycotts.to_json %>;
-            make_pie(window.boycotts)
+            boycotts.sort(function(a,b) { return b[1] - a[1] });
+            make_pie(window.boycotts);
           </script>
         </div>
         <% boycotts.each_with_index do |b,i| %>
