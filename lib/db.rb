@@ -9,7 +9,12 @@ module PicketLine
       end
 
       def create
-        connect      	
+        connect
+        @@db.run "DROP TABLE users"
+        @@db.run "DROP TABLE companies"
+        @@db.run "DROP TABLE boycotts"
+        @@db.run "DROP TABLE reasons"
+        
         @@db.run "CREATE TABLE users (`id` CHAR(32) PRIMARY KEY, `username` varchar(255) UNIQUE, `email` varchar(255) UNIQUE, `password` varchar(32), `profile` varchar(255))"
         @@db.run "CREATE TABLE companies (`id` CHAR(32) PRIMARY KEY, `slug` varchar(255) UNIQUE NOT NULL, `name` varchar(255) UNIQUE NOT NULL, `profile` varchar(255), `corpwatch_id` CHAR(32), `sunlight_id` CHAR(32) NOT NULL)"
         @@db.run "CREATE TABLE boycotts (`user_id` CHAR(32), `reason_id` CHAR(32), `company_id` CHAR(32))"
