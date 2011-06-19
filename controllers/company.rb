@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative '../lib/transparency_data'
+require_relative '../lib/corpwatch'
 
 module PicketLine
   class Company < Sinatra::Base
@@ -30,6 +31,12 @@ module PicketLine
         party_pie << [k, v[1].to_i]
       end
       
+      subsidiaries = nil
+      if company[:corpwatch_id]
+        subsidiaries = CorpWatch.children(company[:corpwatch_id])
+      end
+      puts subsidiaries
+      
       boycotts = PicketLine::DB.get_company_boycotts(company[:id])
       
       user_boycott_reason = nil
@@ -40,7 +47,7 @@ module PicketLine
       boycott_count = 0
       boycotts.each { |b| boycott_count += b[1] }
       
-      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie })
+      erb(:'company/page', :locals => { :header => header, :head => head, :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie, :subsidiaries => subsidiaries })
     end
     
     get '/boycott/:name' do |slug|

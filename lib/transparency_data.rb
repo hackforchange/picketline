@@ -2,7 +2,6 @@ require 'net/http'
 
 class TransparencyData
   HOST = 'transparencydata.com'
-  PATH = '/api/1.0/entities.json'
   APIKEY = '2704975b96fc4221b8990e6f3d595afd'
   
   class << self

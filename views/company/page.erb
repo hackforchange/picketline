@@ -15,15 +15,18 @@
           <!-- empty because safeway is the parent company -->
         </div>
         <div class='section'>
-          <div class='title'>
-            Subsidiaries
-          </div>
           <div id='subsidiaries'>
-            <% if company[:corpwatch_id].nil? %>
-              <a href='/company/add-subsidiaries/<%= company[:name] %>'>Add Subsidiary Information</a>
+            <% if subsidiaries %>
+              <div class='title'>
+                Subsidiaries
+              </div>
+              TODO
+              <% subsidiaries.each do |s| %>
+                <%= s["company_name"] %>
+                <br/>
+              <% end %>
             <% else %>
-              <iframe id='subsidiary_data' style='display: none' src='http://api.corpwatch.org/companies/<%= company[:corpwatch_id] %>/children.json' ></iframe>
-              <script src='javascript/subsidiaries.js'></script>
+              <a href='/company/add-subsidiaries/<%= company[:slug] %>'>Add Subsidiary Information</a>
             <% end %>
           </div>
         </div>
