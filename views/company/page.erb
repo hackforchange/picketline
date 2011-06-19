@@ -39,7 +39,7 @@
           <% if user_boycott_reason %>
             You are boycotting because <%= user_boycott_reason %>
           <% else %>
-            <a class='button' href='/company/boycott/<%= company[:name] %>'>Boycott!</a>
+            <a class='button' href='/company/boycott/<%= company[:slug] %>'>Boycott!</a>
           <% end %>
           <div class='stats'>
             <%= boycott_count %> boycotts

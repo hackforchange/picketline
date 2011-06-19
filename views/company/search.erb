@@ -13,14 +13,9 @@
     <% if results %>
       <div id='results'>
         <% results.each do |company| %>
-          <a href='/company/<%= company[:name] %>'> <%= company[:name] %> </a>
-          <br/>
-        <% end %>
-        <% td.each do |company| %>
           <a href='/company/sunlight/<%= company["id"] %>'> <%= company["name"] %> </a>
           <br/>
         <% end %>
-        
       </div>
     <% end %>
 

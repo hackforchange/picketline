@@ -119,7 +119,13 @@ module PicketLine
       end
       
       def add_corpwatch(company_id, corpwatch_id)
+        connect
         @@db[:companies].where({:id => company_id}).update({:corpwatch_id => corpwatch_id})
+      end
+      
+      def sunlight_company(guid)
+        connect
+        @@db["SELECT * FROM companies WHERE sunlight_id = ?", guid].first
       end
     end
   end

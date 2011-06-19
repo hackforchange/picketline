@@ -4,9 +4,9 @@
   <div id='page'>
     <%= header %>
   
-    Boycott <%= company[:name] %>!
+    Boycott <%= company[:slug] %>!
   
-    <form method='post' action='/company/boycott-form/<%= company[:name] %>'>
+    <form method='post' action='/company/boycott-form/<%= company[:slug] %>'>
       Select from existing reasons:
       <!-- TODO Display all existing reasons -->
       <div>
