@@ -31,7 +31,7 @@ function pie_dot(data_point) {
       .data([data_point])
       .left(7)
       .top(7)
-      .fillStyle(function(d) { return pv.Colors.category20().range()[this.index] })
+      .fillStyle(function(d) { return pv.Colors.category20().range()[d] })
       .strokeStyle(null)
 
   vis.render();

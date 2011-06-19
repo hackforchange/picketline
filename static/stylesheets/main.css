@@ -90,6 +90,7 @@ body {
 #page.company #left {
   position: relative;
   width: 300px;
+  min-height: 200px;
 }
 
 #page.company #right {

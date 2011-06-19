@@ -53,6 +53,8 @@ module PicketLine
           c["corpwatch_id"] = "cw_1901"
         elsif c[:slug] == "safeway-inc"
           c["corpwatch_id"] = "cw_1572"
+        elsif c[:slug] == "halliburton-co"
+          c["corpwatch_id"] = "cw_825"
         end
         c
       end
@@ -93,6 +95,22 @@ module PicketLine
           hash
         end
       end
+      
+      def get_random_boycotts()
+        connect
+        boycotts = @@db["SELECT * FROM boycotts LIMIT 10"]
+        boycotts.collect do |b|
+          hash = {}
+          hash[:reason] = @@db["SELECT * FROM reasons WHERE id = ?", b[:reason_id]].first[:reason]
+          company = @@db["SELECT * FROM companies WHERE id = ?", b[:company_id]].first
+          hash[:company_name] = company[:name]
+          hash[:company_slug] = company[:slug]
+          user = @@db["SELECT * FROM users WHERE id = ?", b[:user_id]].first
+          hash[:user_name] = user[:name]
+          hash
+        end
+      end
+      
       
       # get a list of boycott reasons with number of users who boycott for that reason
       def get_company_boycotts(company_id)

@@ -73,8 +73,10 @@
           </script>
         </div>
         <% boycotts.each_with_index do |b,i| %>
-          <script lanuage='javascript'> pie_dot(window.boycotts[<%= i %>]) </script>
-          <%= b[0] %>
+          <div style='padding-bottom: 10px' >
+            <script language='javascript'> pie_dot(<%= i %>) </script>
+            <%= b[0] %> (<%= b[1] %>)
+          </div>
         <% end %>
       <% else %>
         None yet. <a href='/company/boycott/<%= company[:slug] %>'>Add your own!</a>

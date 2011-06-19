@@ -15,7 +15,8 @@ module PicketLine
           boycotts = PicketLine::DB.get_user_boycotts(env['rack.session']['user'][:id])
           page(erb(:home_logged_in, :locals => {:boycotts => boycotts}), :home)
         else
-          page(erb(:home_logged_out), :home)
+          boycotts = PicketLine::DB.get_random_boycotts()
+          page(erb(:home_logged_out, :locals => {:boycotts => boycotts}), :home)
         end
       end
     

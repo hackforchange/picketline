@@ -16,6 +16,41 @@
   <div style='text-align: center;'>
     <a class='button' href='/account/sign-up'>Sign Up</a>
   </div>
+  <br/>
+  <br/>
+  <h2>Recent Boycotts</h2>
+  <br/>
+  <% if boycotts.length > 0 %>
+    <table id='boycotts'>
+      <tr>
+        <td>
+          User
+        </td>
+        <td>
+          Company
+        </td>
+        <td>
+          Reason
+        </td>
+      </tr>
+      <% boycotts.each do |b| %>
+        <tr>
+          <td>
+            <%= b[:user_name] %>
+          </td>
+          <td>
+            <a href='/company/<%= b[:company_slug] %>'><%= b[:company_name] %></a>
+          </td>
+          <td>
+            <%= b[:reason] %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    None yet. Search for your most hated company ----->
+  <% end %>
+  
 </div>
 <div id='right'>
   <h3>Search Companies</h3>
