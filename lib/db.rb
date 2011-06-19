@@ -55,6 +55,8 @@ module PicketLine
           c["corpwatch_id"] = "cw_1572"
         elsif c[:slug] == "halliburton-co"
           c["corpwatch_id"] = "cw_825"
+        elsif c[:slug] == "coca-cola-co"
+          c["corpwatch_id"] = "cw_391"
         end
         c
       end
