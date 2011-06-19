@@ -1,5 +1,6 @@
 require 'sequel'
 require 'uuid'
+require 'json'
 
 module PicketLine
   class DB
@@ -16,7 +17,7 @@ module PicketLine
         @@db.run "DROP TABLE IF EXISTS reasons"
         
         @@db.run "CREATE TABLE users (id CHAR(32) PRIMARY KEY, username varchar(255) UNIQUE, email varchar(255) UNIQUE, password varchar(32), profile varchar(255))"
-        @@db.run "CREATE TABLE companies (id CHAR(32) PRIMARY KEY, slug varchar(255) UNIQUE NOT NULL, name varchar(255) UNIQUE NOT NULL, profile varchar(255), corpwatch_id CHAR(32), sunlight_id CHAR(32) NOT NULL)"
+        @@db.run "CREATE TABLE companies (id CHAR(32) PRIMARY KEY, slug varchar(255) UNIQUE NOT NULL, name varchar(255) UNIQUE NOT NULL, profile text, corpwatch_id CHAR(32), sunlight_id CHAR(32) NOT NULL)"
         @@db.run "CREATE TABLE boycotts (user_id CHAR(32), reason_id CHAR(32), company_id CHAR(32))"
         @@db.run "CREATE INDEX index_boycott_user ON boycotts (user_id)"
         @@db.run "CREATE INDEX index_boycott_company ON boycotts (company_id)"
@@ -42,6 +43,7 @@ module PicketLine
         parameters.keep_if { |k,v| ["name", :slug, "sunlight_id"].include?(k) }
         parameters[:id] = UUID.generate(:compact)
         parameters = corpwatch_hack(parameters)
+        parameters[:profile] = {}.to_json
         
         @@db[:companies].insert(parameters)
       end

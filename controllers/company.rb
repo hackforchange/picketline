@@ -1,6 +1,7 @@
 require_relative 'base'
 require_relative '../lib/api/transparency_data'
 require_relative '../lib/api/corpwatch'
+require_relative '../lib/model/company'
 
 module PicketLine
   module Server
@@ -16,7 +17,7 @@ module PicketLine
       end
     
       get '/:name' do |slug|
-        company = PicketLine::DB.get_company(slug.to_s)
+        company = PicketLine::Company.get_by_slug(slug.to_s)
         sunlight_company = TransparencyData.get(company[:sunlight_id])
       
         party_breakdown = TransparencyData.party_breakdown(company[:sunlight_id])
@@ -40,7 +41,9 @@ module PicketLine
         boycott_count = 0
         boycotts.each { |b| boycott_count += b[1] }
 
-        page(erb(:'company/page', :locals => { :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie, :subsidiaries => subsidiaries }), :company)
+        critics = company[:profile][:critics]
+        
+        page(erb(:'company/page', :locals => { :company => company, :boycotts => boycotts, :user_boycott_reason => user_boycott_reason, :boycott_count => boycott_count, :sunlight_company => sunlight_company, :party_pie => party_pie, :subsidiaries => subsidiaries, :critics => critics }), :company)
       end
     
       get '/boycott/:name' do |slug|

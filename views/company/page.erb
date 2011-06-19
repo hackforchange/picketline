@@ -78,9 +78,32 @@
     </div>
   </div>
 </div>
-<div id='references'>
+<div id='sites'>
   <div class='section'>
-    references
+    <div class='title'>
+      Web sites critical of <%= company[:name] %>
+    </div>
+    <div class='link_list'>
+      <% critics[:sites].each do |p| %>
+        <div>
+          <a href='<%= p[:url] %>'><%= p[:blurb] %></a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div id='posts'>
+  <div class='section'>
+    <div class='title'>
+      Press which is critical of <%= company[:name] %>
+    </div>
+    <div class='link_list'>
+      <% critics[:posts].each do |p| %>
+        <div>
+          <a href='<%= p[:url] %>'><%= p[:blurb] %></a>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 

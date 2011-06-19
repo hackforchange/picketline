@@ -208,3 +208,8 @@ h2 {
 .section .footer a {
   color: #666;
 }
+
+#contributions {
+  border-left: 1px dashed #ccc;
+  padding-left: 15px;
+}
