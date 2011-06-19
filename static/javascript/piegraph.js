@@ -1,5 +1,4 @@
-function make_pie() {
-  var data = [["a", 10],["b", 2],["c.", 4],["etc.", 1],["b", 2],["c", 4],["d", 5],["b", 2],["c", 4],["d", 5]];
+function make_pie(data) {
   var data_total = pv.sum(pv.map(data, function(x) { return x[1] }));
   data.sort(function(a,b) { return b[1] - a[1] });
   

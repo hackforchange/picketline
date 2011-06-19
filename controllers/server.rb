@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'erb'
+require 'json'
 
 require_relative '../lib/db'
 

@@ -53,12 +53,7 @@
             Reasons
           </div>
           <div id='boycotts'>
-            <% boycotts.each do |b| %>
-              <div>
-                <%= b[1] %> people are boycotting because <%= b[0] %>
-              </div>
-            <% end %>
-            <script lanuage='javascript'> make_pie() </script>
+            <script lanuage='javascript'> make_pie(<%= boycotts.to_json %>) </script>
           </div>
       
         </div>
