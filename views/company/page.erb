@@ -43,7 +43,7 @@
             You are boycotting because <%= user_boycott_reason %>
           <% else %>
             <a class='button' href='/company/boycott/<%= company[:name] %>'>Boycott!</a>
-          <% end %>        
+          <% end %>
           <div class='stats'>
             <%= boycott_count %> boycotts
           </div>
@@ -53,11 +53,12 @@
             Reasons
           </div>
           <div id='boycotts'>
-          <% boycotts.each do |b| %>
-            <div>
-              <%= b[1] %> people are boycotting because <%= b[0] %>
-            </div>
-          <% end %>
+            <% boycotts.each do |b| %>
+              <div>
+                <%= b[1] %> people are boycotting because <%= b[0] %>
+              </div>
+            <% end %>
+            <script lanuage='javascript'> make_pie() </script>
           </div>
       
         </div>
